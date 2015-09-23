@@ -1,0 +1,107 @@
+﻿@model AppsterBackendAdmin.Models.View.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Appster</title>
+    @*@Styles.Render("~/bundles/appsterlogin")*@
+    <link rel="stylesheet" type="text/css" href="~/Content/css/login_style.css">
+</head>
+
+<body>
+    <section class="upper_red_area">
+        <div class="logo">
+            <img src="~/Content/img/logo_adminag.png" alt="">
+        </div>
+    </section>
+    <section class="login_form_area">
+            @using(Html.BeginForm("index", "login", FormMethod.Post, new { @acceptcharset="utf-8"})){
+            
+            <div style="display:none;"><input name="_method" value="POST" type="hidden"></div>
+            <div class="row">
+                <div class="txtbx_icon">
+                    <img src="~/Content/img/icon_login_txtbx.png" alt="">
+                </div>
+                <div class="txtbx_field">
+                    @Html.TextBoxFor(model => model.UserName , new { @placeholder="User name or email", @maxlength= "255" })
+                    @*<input name="" value="" placeholder="Email" autofocus="autofocus" maxlength="255" id="UserEmail" type="email">*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="txtbx_icon">
+                    <img src="~/Content/img/icon_password.png" alt="">
+                </div>
+                <div class="txtbx_field">
+                    @Html.PasswordFor(model => Model.Password, new { @placeholder="Password" })
+                    @*<input name="" value="" placeholder="Password" id="UserPassword" type="password">*@
+                </div>
+            </div>
+
+            <div class="forgot">
+                <div class="pass">
+                    <!--<a href="#">forgot your password?</a>-->
+                    @Html.ActionLink("Forgot Password?", "forgotpassword", null, new { @title = "Forgot password" })
+                </div>
+                <div class="radio check">
+                    <div class="squaredThree">
+                        <input name="data[User][remember_me]" id="squaredThree2_" value="0" type="hidden">
+                        <input name="data[User][remember_me]" class="chkbx left" id="squaredThree2" value="2" type="checkbox">
+                        <label for="squaredThree2"></label>
+                    </div>
+                    <span class="remember_me">Remember me</span>
+                </div>
+            </div>
+            <div class="submit">
+                <input title="Login" name="login" value="" type="submit">
+            </div>
+            }
+        @*</form>*@
+    </section>    
+    <footer></footer>
+    <style>
+        #flashMessage, #authMessage {
+            color: white;
+            background: none repeat scroll 0 0 #66cc66;
+            clear: both;
+            font-size: 140%;
+            font-weight: bold;
+            margin: 1em 6px;
+            padding: 5px;
+            padding-left: 0.4em;
+            //box-shadow: 0 4px 18px #555555;
+        }
+
+        .notification, .msgerror {
+            color: white !important;
+            background: none repeat scroll 0 0 #EF452B !important;
+            clear: both;
+            font-size: 140%;
+            font-weight: bold !important;
+            margin: 1em 6px;
+            padding: 5px;
+            padding-left: 0.4em;
+            //box-shadow: 0 4px 18px #555555;
+        }
+
+            .msgerror p {
+                color: white !important;
+                font-weight: bold !important;
+            }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            // fade out flash 'success' messages
+            $('#flashMessage').delay("4000").slideUp("4000");
+            $('#authMessage').delay("4000").slideUp("4000");
+            $('.msgerror').delay("4000").slideUp("4000");
+        });
+    </script>
+
+
+</body>
+</html>
+

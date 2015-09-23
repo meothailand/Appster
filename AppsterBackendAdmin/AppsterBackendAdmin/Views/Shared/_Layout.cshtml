@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+        Appster Admin Panel:
+        Users
+    </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/Content/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/neon-theme.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/neon-forms.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/colorbox.css">
+    <link href="/favicon.ico" type="image/x-icon" rel="icon">
+    <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+
+</head>
+<body class="page-body" data-url="http://neon.dev">
+    <script>
+        $(document).ready(function() {
+            // fade out flash 'success' messages
+            $('#flashMessage').delay("2000").slideUp("2000");
+            $('#authMessage').delay("2000").slideUp("2000");
+            $('.msgerror').delay("2000").slideUp("2000");
+        });
+    </script>
+
+    <div class="page-container">
+        <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+
+        <header class="logo-env">
+            <div class="top_part_head">
+
+                <!-- logo -->
+                <div class="logo_part">
+                    <div class="logo">
+                        <a href="/admin/Users/dashboard">
+                            <img src="/img/logo%402x.png" alt="" width="120">
+                        </a>
+                    </div>
+
+                    <!-- logo collapse icon -->
+
+                    <div class="sidebar-collapse">
+                    </div>
+                </div>
+
+                <div class="welcom_part">
+                    <div class=" gg">
+                        <div class="no_sports">
+                            <div class="sports">
+                                <ul class="user-info pull-left pull-none-xsm">
+
+                                    <!-- Profile Info -->
+                                    <li class="profile-info dropdown">
+                                        <!-- add class "pull-right" if you want to place this from right -->
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="/timthumb.php?src=/profile_image/demo1437466962.png" img-circle1="img-circle1" alt="" width="44">
+                                        </a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            User display name here
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div><!--sports-->
+                            <div class="log_sorts">
+                                <a href="/admin/Users/logout" title="logout"><img src="/img/log_ooout.png" img-circle1="img-circle1" alt="" width="44"></a>
+                            </div><!--log_sorts-->
+                        </div><!--no_sports-->
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="sidebar-menu">
+            <ul id="main-menu" class="">
+                <li class=" has_sub">
+                    <a href="/admin/Users/dashboard"><span>Dashboard</span></a>
+                </li>
+
+                <li class=" has_sub">
+                    <a href="/admin/Users"><span>Manage Users</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/credits"><span>Manage Credits</span></a>
+                </li>
+
+                <li class=" has_sub">
+                    <a href="/admin/Posts/managewall"><span>Manage Wall</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/leaderboards"><span>Manage Leaderboard</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/GiftCategories/manage"><span>Manage Categories</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/Gifts"><span>Manage Virtual Gifts</span></a>
+                </li>
+
+                <li class=" has_sub">
+                    <a href="/admin/events"><span>Manage Events</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/LedgerShares"><span>Manage Purchase History</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/LedgerShares/ledger"><span>Manage Ledger</span></a>
+                </li>
+
+                <!-----------------------------------------------------Accordian------------------------------>
+
+                <li class="up_arrow " id="main_div">
+                    <a href="javascript:void(0)"><span>Manage Reports</span></a>
+
+                    <ul id="lee" class="op">
+                        <li class="">
+                            <a href="/admin/Reports/manage_package"><span>Packages Reports </span></a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/Reports/manage_subadmin"><span>Sub-admin Reports</span></a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/Reports/manage_gift"><span>Gifts Reports</span></a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/Reports/manage_earning"><span>Earnings Reports</span></a>
+                        </li>
+
+                        <li class="">
+                            <a href="/admin/Reports/manage_paypal"><span>Paypals Reports</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <!------------------------------------------------------->
+
+                <li class=" has_sub">
+                    <a href="/admin/SavePushNotifications/manage_pushnotification"><span>Manage Push Notifications</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/Pages/manage_static_page"><span>Manage Static Page</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/Vipgifts"><span>Manage Vip Gifts</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/CashBacks"><span>Cash Back Request</span></a>
+                </li>
+                <li class=" has_sub">
+                    <a href="/admin/Reports/manage"><span>Manage Flags</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="unauth"> <div style="display: none;" id="authMessage" class="message">You are not authorized to access that location.</div></div>
+            @RenderSection("bodyContent", required: true)
+        </div>
+
+        <footer id="footer">
+            <p>2015 © Appster</p>
+        </footer>
+
+    </div>
+
+
+    <style>
+        #flashMessage, #authMessage {
+            color: white;
+            background: none repeat scroll 0 0 #66cc66;
+            clear: both;
+            font-size: 140%;
+            font-weight: bold;
+            margin: 1em 6px;
+            padding: 5px;
+            padding-left: 0.4em;
+            //box-shadow: 0 4px 18px #555555;
+        }
+
+        .notification, .msgerror {
+            color: white !important;
+            background: none repeat scroll 0 0 #EF452B !important;
+            clear: both;
+            font-size: 140%;
+            font-weight: bold !important;
+            margin: 1em 6px;
+            padding: 5px;
+            padding-left: 0.4em;
+            //box-shadow: 0 4px 18px #555555;
+        }
+
+            .msgerror p {
+                color: white !important;
+                font-weight: bold !important;
+            }
+    </style>
+
+    <div style="display: none;" id="cboxOverlay"></div><div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox">
+        <div id="cboxWrapper">
+            <div>
+                <div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div>
+                <div style="float: left;" id="cboxTopRight"></div>
+            </div><div style="clear: left;">
+                <div style="float: left;" id="cboxMiddleLeft"></div>
+                <div style="float: left;" id="cboxContent">
+                    <div style="float: left;" id="cboxTitle"></div>
+                    <div style="float: left;" id="cboxCurrent"></div><button id="cboxPrevious" type="button"></button><button id="cboxNext" type="button"></button>
+                    <button id="cboxSlideshow"></button><div style="float: left;" id="cboxLoadingOverlay"></div><div style="float: left;" id="cboxLoadingGraphic"></div>
+                </div><div style="float: left;" id="cboxMiddleRight"></div>
+            </div><div style="clear: left;">
+                <div style="float: left;" id="cboxBottomLeft"></div>
+                <div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div>
+            </div>
+        </div>
+        <div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div>
+    </div>
+    <script type="text/javascript" src="/Content/js/jquery.min2.1.1.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/Content/js/dropdown.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.timepicker.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery.colorbox.js"></script>
+    <script>
+        $(document).ready(function(){
+            //remove the <hr>
+            $('.main-content hr').remove();
+
+            //code for the date picker
+            $('#datepicker').datepicker({dateFormat: "dd/mm/yy",
+                yearRange: '1950:' + new Date().getFullYear(),
+                changeMonth: true,
+                changeYear: true,
+            });
+
+            $('#event_time').timepicker({disableTextInput:true});
+            $('#event_time').keydown(function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            var my_php_var = "users";
+            var my_act_var = "admin_dashboard";
+
+            if (my_php_var=='Reports' && my_act_var!='admin_manage'){
+                $("#lee").show();
+            }
+            $("#main_div").click(function(){
+
+                $("#lee").toggle(function() {
+                    if($(this).is(':visible')){
+
+                        $("#main_div").removeClass('up_arrow');
+                        $("#main_div").addClass('down_arrow');
+
+                    } else if ($(this).is(':hidden')) {
+
+                        $("#main_div").removeClass('down_arrow');
+                        $("#main_div").addClass('up_arrow');
+
+                    };
+                });
+
+            });
+
+    });
+    </script>
+</body>
+</html>

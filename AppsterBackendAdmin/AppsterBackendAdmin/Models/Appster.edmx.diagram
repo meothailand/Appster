@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9121268ff5b341508acc598a0701d8ab" Name="Diagram1">
+        <EntityTypeShape EntityType="appsterModel.access_levels" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.adminpushnotification" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.chat" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.comment" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.event" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.follow" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.gift_categories" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.gift" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.leaderboard" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.ledger_shares" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.order" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.post_likes" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.post" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.role" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.user" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.vipgift" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.vipgiftssend" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.wall" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appsterModel.aco" Width="1.5" PointX="13.75" PointY="3.75" />
+        <EntityTypeShape EntityType="appsterModel.admin_histories" Width="1.5" PointX="3.75" PointY="13.75" />
+        <EntityTypeShape EntityType="appsterModel.aro" Width="1.5" PointX="13.75" PointY="7.75" />
+        <EntityTypeShape EntityType="appsterModel.aros_acos" Width="1.5" PointX="13.75" PointY="11.75" />
+        <EntityTypeShape EntityType="appsterModel.article" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.cash_backs" Width="1.5" PointX="15.75" PointY="4.75" />
+        <EntityTypeShape EntityType="appsterModel.chat_deletes" Width="1.5" PointX="15.75" PointY="8.75" />
+        <EntityTypeShape EntityType="appsterModel.checkin_users" Width="1.5" PointX="15.75" PointY="11.75" />
+        <EntityTypeShape EntityType="appsterModel.cost_settings" Width="1.5" PointX="13.75" PointY="15.75" />
+        <EntityTypeShape EntityType="appsterModel.country" Width="1.5" PointX="15.75" PointY="14.75" />
+        <EntityTypeShape EntityType="appsterModel.credit" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="appsterModel.custom_pages" Width="1.5" PointX="5.75" PointY="16.75" />
+        <EntityTypeShape EntityType="appsterModel.device_saves" Width="1.5" PointX="7.75" PointY="16.75" />
+        <EntityTypeShape EntityType="appsterModel.event_categories" Width="1.5" PointX="9.75" PointY="16.75" />
+        <EntityTypeShape EntityType="appsterModel.event_participants" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.event_votes" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="appsterModel.event_voting_lists" Width="1.5" PointX="17.75" PointY="4.75" />
+        <EntityTypeShape EntityType="appsterModel.faq" Width="1.5" PointX="17.75" PointY="7.75" />
+        <EntityTypeShape EntityType="appsterModel.leaderboard_activations" Width="1.5" PointX="17.75" PointY="11.75" />
+        <EntityTypeShape EntityType="appsterModel.leaderboard_logs" Width="1.5" PointX="17.75" PointY="14.75" />
+        <EntityTypeShape EntityType="appsterModel.leaderboard_temps" Width="1.5" PointX="15.75" PointY="18.75" />
+        <EntityTypeShape EntityType="appsterModel.notification" Width="1.5" PointX="17.75" PointY="18.75" />
+        <EntityTypeShape EntityType="appsterModel.ofConversation" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.ofExtComponentConf" Width="1.5" PointX="19.75" PointY="3.75" />
+        <EntityTypeShape EntityType="appsterModel.ofGroup" Width="1.5" PointX="4.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.ofGroupProp" Width="1.5" PointX="19.75" PointY="6.75" />
+        <EntityTypeShape EntityType="appsterModel.ofGroupUser" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.ofID" Width="1.5" PointX="8.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucAffiliation" Width="1.5" PointX="19.75" PointY="9.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucMember" Width="1.5" PointX="10.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucRoom" Width="1.5" PointX="19.75" PointY="12.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucRoomProp" Width="1.5" PointX="19.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucService" Width="1.5" PointX="0.75" PointY="20.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucServiceProp" Width="1.5" PointX="12.75" PointY="20.75" />
+        <EntityTypeShape EntityType="appsterModel.ofOffline" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPresence" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPrivacyList" Width="1.5" PointX="21.75" PointY="6.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPrivate" Width="1.5" PointX="21.75" PointY="9.75" />
+        <EntityTypeShape EntityType="appsterModel.ofProperty" Width="1.5" PointX="21.75" PointY="12.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubAffiliation" Width="1.5" PointX="14.75" PointY="21.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubDefaultConf" Width="1.5" PointX="21.75" PointY="15.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubItem" Width="1.5" PointX="21.75" PointY="21.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubNode" Width="1.5" PointX="2.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubNodeJID" Width="1.5" PointX="4.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubSubscription" Width="1.5" PointX="6.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.ofRemoteServerConf" Width="1.5" PointX="16.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.ofRoster" Width="1.5" PointX="18.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.ofRosterGroup" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.ofRRD" Width="1.5" PointX="23.75" PointY="3.75" />
+        <EntityTypeShape EntityType="appsterModel.ofSASLAuthorized" Width="1.5" PointX="23.75" PointY="6.75" />
+        <EntityTypeShape EntityType="appsterModel.ofSecurityAuditLog" Width="1.5" PointX="8.75" PointY="23.75" />
+        <EntityTypeShape EntityType="appsterModel.ofUser" Width="1.5" PointX="23.75" PointY="9.75" />
+        <EntityTypeShape EntityType="appsterModel.ofUserFlag" Width="1.5" PointX="10.75" PointY="23.75" />
+        <EntityTypeShape EntityType="appsterModel.ofUserProp" Width="1.5" PointX="23.75" PointY="13.75" />
+        <EntityTypeShape EntityType="appsterModel.ofVCard" Width="1.5" PointX="23.75" PointY="16.75" />
+        <EntityTypeShape EntityType="appsterModel.ofVersion" Width="1.5" PointX="23.75" PointY="19.75" />
+        <EntityTypeShape EntityType="appsterModel.page" Width="1.5" PointX="23.75" PointY="22.75" />
+        <EntityTypeShape EntityType="appsterModel.paypal_settings" Width="1.5" PointX="12.75" PointY="24.75" />
+        <EntityTypeShape EntityType="appsterModel.report" Width="1.5" PointX="20.75" PointY="24.75" />
+        <EntityTypeShape EntityType="appsterModel.save_push_notifications" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="appsterModel.send_gifts" Width="1.5" PointX="25.75" PointY="4.75" />
+        <EntityTypeShape EntityType="appsterModel.test" Width="1.5" PointX="25.75" PointY="9.75" />
+        <EntityTypeShape EntityType="appsterModel.thank" Width="1.5" PointX="25.75" PointY="12.75" />
+        <EntityTypeShape EntityType="appsterModel.top_ups" Width="1.5" PointX="14.75" PointY="25.75" />
+        <EntityTypeShape EntityType="appsterModel.verification" Width="1.5" PointX="25.75" PointY="15.75" />
+        <EntityTypeShape EntityType="appsterModel.ofConParticipant" Width="1.5" PointX="25.75" PointY="18.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMessageArchive" Width="1.5" PointX="25.75" PointY="21.75" />
+        <EntityTypeShape EntityType="appsterModel.ofMucConversationLog" Width="1.5" PointX="25.75" PointY="25.75" />
+        <EntityTypeShape EntityType="appsterModel.ofPubsubNodeGroup" Width="1.5" PointX="8.75" PointY="26.75" />
+        <EntityTypeShape EntityType="appsterModel.schema_migrations" Width="1.5" PointX="16.75" PointY="26.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

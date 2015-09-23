@@ -1,0 +1,79 @@
+﻿@model AppsterBackendAdmin.Models.View.DashboardViewModel
+
+@section bodyContent
+{
+    <div class="main_heading">
+        <h2 class="left">Recently Added Users</h2>
+        <div class="right">
+            <a href="#" title="add user">Add User</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="centered">No.</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th><div class="centered">Gender</div></th>
+                            <th class="referal">Referral ID</th>
+                            <th class="gift_user_send">Gift Sent</th>
+                            <th class="gift_user_rec">Gift received</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                                var count = 0;
+                                foreach (var user in Model.NewAddedUsers)
+                                {
+                                    count += 1;
+                                    <tr>
+                                        <td class="centered">@count</td>
+                                        <td>@user.display_name</td>
+                                        <td>@user.email</td>
+                                        <td class="centered">
+                                            @(string.IsNullOrWhiteSpace(user.gender) || user.gender == "Female" ? "M" : "F")
+                                        </td>
+                                        <td>@user.referral_id</td>
+                                        <td>--</td>
+                                        <td>--</td>
+
+                                        <td>
+                                            <div id="dropdown1" class="dropdown">
+                                                <a class="account" id="">
+                                                    <span>
+                                                        <img src="/img/btn_dropdown.png" alt="">
+                                                    </span>
+                                                </a>
+
+                                                <div class="submenu" style="display: none; ">
+                                                    <div class="top2"></div>
+                                                    <ul class="root">
+
+                                                        <li>
+                                                            <a href="/admin/users/edit/98805"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/admin/users/suspend?id=98805&amp;status=1" onclick="if (confirm('Are you sure you want to Suspend the User?' )) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/admin/users/delete/98805" onclick="if (confirm('Are you sure you want to Delete the User')) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
