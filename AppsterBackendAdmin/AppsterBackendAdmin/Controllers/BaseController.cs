@@ -1,4 +1,5 @@
-﻿using AppsterBackendAdmin.Infrastructures.Contracts;
+﻿using AppsterBackendAdmin.Business;
+using AppsterBackendAdmin.Infrastructures.Contracts;
 using AppsterBackendAdmin.Infrastructures.Implementations;
 using AppsterBackendAdmin.Infrastructures.Security;
 using System;
@@ -11,12 +12,12 @@ namespace AppsterBackendAdmin.Controllers
 {
     public class BaseController : Controller
     {
-        public IDataAccess Context { get; private set; }
+        //public IDataAccess Context { get; private set; }
         public AccountPasswordHelper PasswordHelper {get; private set;}
-
+        public LoadDataBusiness DataLoader { get; private set; }
         public BaseController()
         {
-            Context = AppsterDataAccess.Instance;
+            DataLoader = LoadDataBusiness.Instance;
             PasswordHelper = AccountPasswordHelper.Instance;
         }
 

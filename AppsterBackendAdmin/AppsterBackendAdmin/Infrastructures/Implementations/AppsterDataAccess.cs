@@ -12,52 +12,13 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
     public class AppsterDataAccess : IDataAccess
     {
         public static IDataAccess Instance { get; private set; }
-        public const string SupperAdmin = "super admin";
-        public const int SuperAdminRoleId = 1;
 
         static AppsterDataAccess()
         {
             Instance = new AppsterDataAccess();
         }
 
-        #region helper
-        /// <summary>
-        /// Compose access token for user
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidUserException"></exception>
-        private string ComposeToken(user user)
-        {
-            var expiration = DateTimeOffset.Now + TimeSpan.FromDays(2);
-            var access = GetAccessType(user.role_id);
-            var token = Token.CreateAndSign(user.username, access, expiration);
-            return token.Signature;
-        }
-        /// <summary>
-        /// Get user access type
-        /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidUserException"></exception>
-        private AccessType GetAccessType(int role)
-        {
-            using (var context = new appsterEntities())
-            {
-                var roles = context.roles;
-                var userRole = roles.SingleOrDefault(i => i.id == role);
-                if (userRole == null) throw new InvalidUserException("User role is invalid");
-                switch (userRole.name.ToLower())
-                {
-                    case SupperAdmin: return AccessType.Supper;
-                    case "minimum access": return AccessType.Minimum;
-                    case "average access": return AccessType.Average;
-                    case "maximum access": return AccessType.Max;
-                    default: throw new InvalidUserException("User role is invalid");
-                }
-            }
-        }
-        #endregion
+        
         /// <summary>
         /// Get the role_id of an role by role name from database
         /// </summary>
@@ -73,25 +34,12 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
-        /// <summary>
-        /// Sign in with user name and password
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <returns>string: user token key</returns>
-        /// <exception cref="InvalidUserException"></exception>
-        /// <exception cref="LoginFailException"></exception>
-        public string SignIn(string userName, string password)
+        public IEnumerable<role> GetRoles()
         {
-            password = AccountPasswordHelper.Instance.EncryptPassword(password);
-            var user = GetUser(i => i.username == userName && i.password == password);
-            user = user == null ? GetUser(i => i.email == userName && i.password == password) : user;
-            if (user == null)
+            using (var context = new appsterEntities())
             {
-                throw new LoginFailException("User name or password invalid");
+                return context.roles.ToArray();
             }
-            if (user.status != 1) throw new LoginFailException("Account has been deactivated", 603);
-            return ComposeToken(user);
         }
 
         public Models.user GetUser(Func<Models.user, bool> predicate)
@@ -103,35 +51,37 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
-        public IEnumerable<Models.user> GetUsers(Func<Models.user, bool> predicate)
+        public IEnumerable<Models.user> GetUsers(Func<Models.user, bool> predicate, int? take)
         {
             using (var context = new appsterEntities())
             {
-                var users = context.users.Where(predicate).Where(i => i.role_id != SuperAdminRoleId);
+                var users = context.users.Where(predicate);
+                if (take.HasValue && take.Value > 0) return users.Take(take.Value).ToArray();
                 return users.ToArray();
             }
         }
 
-        public IEnumerable<user> GetNewAddedUser(int? take)
+        public IEnumerable<user> GetNewAddedUser(int? take, bool getAdminUser = false)
         {
             var roleId = GetRole("user");
             take = take.HasValue && take > 0 ? take.Value : 20;
             using (var context = new appsterEntities())
             {
-
-                var newAddedUsers = (from users in context.users
-                              where users.role_id == roleId
-                              orderby users.id descending
-                              select users).Take(take.Value).ToArray();
-                foreach (var u in newAddedUsers)
+                var newAddedUsers = new List<user>();
+                if (getAdminUser)
                 {
-                    var count = (from giftSent in context.send_gifts
-                                 where giftSent.user_id == u.id || giftSent.receiver_user_id == u.id
-                                 select giftSent).ToArray();
-                    u.gift_sent_count = count.Count(i => i.user_id == u.id);
-                    u.gift_received_count = count.Count(i => i.receiver_user_id == u.id);
+                    newAddedUsers = (from users in context.users
+                                         where users.role_id != roleId
+                                         orderby users.id descending
+                                         select users).Take(take.Value).ToList();
                 }
-
+                else
+                {
+                    newAddedUsers = (from users in context.users
+                                         where users.role_id == roleId
+                                         orderby users.id descending
+                                     select users).Take(take.Value).ToList();
+                }
                 return newAddedUsers;
             }
         }

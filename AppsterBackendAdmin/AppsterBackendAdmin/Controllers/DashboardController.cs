@@ -1,4 +1,5 @@
-﻿using AppsterBackendAdmin.Infrastructures.Filters;
+﻿using AppsterBackendAdmin.Business;
+using AppsterBackendAdmin.Infrastructures.Filters;
 using AppsterBackendAdmin.Models.View;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,10 @@ namespace AppsterBackendAdmin.Controllers
     {
         public ActionResult Index()
         {
-            var users = Context.GetNewAddedUser(10);
+            var business = new LoadDataBusiness();
             var model = new DashboardViewModel();
-            model.NewAddedUsers = users.ToList();
+            model.NewAddedUsers = business.LoadNewAddedUsers(10);
+            model.NewAddedAdmins = business.LoadNewAddedAdmins(10);
             return View(model);
         }
 

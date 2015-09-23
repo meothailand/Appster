@@ -17,26 +17,25 @@ namespace AppsterBackendAdmin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string UserName, string Password)
+        public ActionResult Index(LoginViewModel credential)
         {
             try
             {
-                var accessKey = Context.SignIn(UserName, Password);
+                var accessKey = DataLoader.SignInUser(credential.UserName, credential.Password);
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
             {
-                var login = new LoginViewModel() { UserName = UserName, Password = Password };
-                login.IsError = true;
+                credential.IsError = true;
                 if (ex.GetType() == typeof(LoginFailException) || ex.GetType() == typeof(InvalidUserException))
                 {
-                    login.ErrorMessage = ex.Message;
+                    credential.ErrorMessage = ex.Message;
                 }
                 else
                 {
-                    login.ErrorMessage = "Cannot sign in to the system. Unknown error. Contact your web admin for support.";
+                    credential.ErrorMessage = "Cannot sign in to the system. Unknown error. Contact your web admin for support.";
                 }
-                return View(login);
+                return View(credential);
             }
         }
     }
