@@ -33,6 +33,12 @@ namespace AppsterBackendAdmin.Business
             return result.ToList();
         }
 
+        public List<Newsfeed> LoadNewfeeds(int? take)
+        {
+            var feeds = Context.GetSavePushNotifications(i => i.id > 0, take).ToList();
+            return feeds.Select(i => new Newsfeed(i)).ToList();
+        }
+
         /// <summary>
         /// Sign in with user name and password
         /// </summary>

@@ -29,5 +29,6 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         IEnumerable<@event> GetEvents(Func<@event, bool> predicate);
         gift GetGift(Func<gift, bool> predicate);
         IEnumerable<gift> GetGifts(Func<gift, bool> predicate);
+        IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int? take);
     }
 }

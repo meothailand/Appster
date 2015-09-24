@@ -2148,6 +2148,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\_NewAddedUserPartial.cshtml" />
     <Content Include="Views\Dashboard\_NewAddedAdminUserPartial.cshtml" />
+    <Content Include="Views\Dashboard\_NewsFeedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

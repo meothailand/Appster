@@ -1,0 +1,74 @@
+﻿@model AppsterBackendAdmin.Models.View.DashboardViewModel
+
+<div class="col-sm-12">
+    <div class="panel panel-primary">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="feed_back"><div class="feeds">Newsfeeds</div></th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{                    
+                    var currentDate = DateTime.Now;
+                    TimeSpan interval;
+                    foreach (var f in Model.Newsfeed)
+                    {
+                        interval = currentDate - f.CreatedDate;
+                        <tr>
+                            <td>@f.Message &nbsp;</td>
+                            <td>
+                                @if (interval.Days > 365)
+                                {
+                                    <span> @(interval.Days/365) years ago</span>
+                                }
+                                else if (interval.Days > 30)
+                                {
+                                    <span> @(interval.Days/30) months ago</span>
+                                }
+                                else if(interval.Days > 7)
+                                {
+                                    <span> @(interval.Days/7) weeks ago</span>
+                                }
+                                else if(interval.Days > 1)
+                                {
+                                    <span> @(interval.Days) days ago</span>
+                                }
+                                else if(interval.Hours > 1)
+                                {
+                                    <span> @(interval.Hours) hours ago</span>
+                                }
+                                else
+                                {
+                                    <span> @(interval.Minutes) minutes ago</span>
+                                }
+                            </td>
+                            <td>
+                                <div id="dropdown1" class="dropdown">
+                                    <a class="account" id="">
+                                        <span>
+                                            <img alt="" title="Setting" src="~/Content/img/btn_dropdown.png" />
+                                        </span>
+                                    </a>
+                                    <div style="display: none;" class="submenu">
+                                        <div class="top2"></div>
+                                        <ul class="root">
+                                            <li>
+                                                <a href="/admin/SavePushNotifications/sendpush_users/3959"><img alt="" src="~/Content/img/view_icon.png">View</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                
+            </tbody>
+        </table>
+
+    </div>
+</div>

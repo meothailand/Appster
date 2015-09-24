@@ -9,7 +9,7 @@ using AppsterBackendAdmin.Infrastructures.Exceptions;
 
 namespace AppsterBackendAdmin.Infrastructures.Implementations
 {
-    public class AppsterDataAccess : IDataAccess
+    public partial class AppsterDataAccess : IDataAccess
     {
         public static IDataAccess Instance { get; private set; }
 
@@ -64,25 +64,27 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
         public IEnumerable<user> GetNewAddedUser(int? take, bool getAdminUser = false)
         {
             var roleId = GetRole("user");
-            take = take.HasValue && take > 0 ? take.Value : 20;
             using (var context = new appsterEntities())
             {
-                var newAddedUsers = new List<user>();
+                var result = new List<user>();
                 if (getAdminUser)
                 {
-                    newAddedUsers = (from users in context.users
-                                         where users.role_id != roleId
-                                         orderby users.id descending
-                                         select users).Take(take.Value).ToList();
+                    var newAddedAdmin = (from users in context.users
+                                     where users.role_id != roleId
+                                     orderby users.id descending
+                                     select users);
+                    result = (take.HasValue && take > 0) ? newAddedAdmin.Take(take.Value).ToList() : newAddedAdmin.ToList();
                 }
                 else
                 {
-                    newAddedUsers = (from users in context.users
+                    var newAddedUsers = (from users in context.users
                                          where users.role_id == roleId
                                          orderby users.id descending
                                      select users).Take(take.Value).ToList();
+                    result = (take.HasValue && take > 0) ? newAddedUsers.Take(take.Value).ToList() : newAddedUsers.ToList();
                 }
-                return newAddedUsers;
+                
+                return result;
             }
         }
 
@@ -122,6 +124,25 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
         public IEnumerable<Models.gift> GetGifts(Func<Models.gift, bool> predicate)
         {
             throw new NotImplementedException();
+        }
+
+
+        public IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int? take)
+        {
+            using (var context = new appsterEntities())
+            {
+                var feeds = context.save_push_notifications.Where(predicate).OrderByDescending(n => n.id)
+                                   .Join(context.users, p => p.resiver_user_id, u => u.id, (p,u) => new{
+                                       Id = p.id,
+                                       UserId = p.user_id,
+                                       ReceiverId = p.resiver_user_id,
+                                       ReceiverName = u.display_name,
+                                       Message = p.message,
+                                       CreatedDate = p.created
+                                   });
+                if (take.HasValue && take > 0) feeds = feeds.Take(take.Value);
+                return feeds.ToList();         
+            }
         }
     }
 }
