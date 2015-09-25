@@ -18,10 +18,11 @@ namespace AppsterBackendAdmin.Models.Business
         public Newsfeed(dynamic value) : this()
         {
             ModelObjectHelper.CopyObject(value, this);
+            var possessiveName = string.Format("{0}'s", this.ReceiverName);
             this.Message = this.Message.Replace("You", this.ReceiverName)
                                 .Replace("you", this.ReceiverName)
-                                .Replace("Your", string.Format("{0}'s", this.ReceiverName))
-                                .Replace("your", string.Format("{0}'s", this.ReceiverName));
+                                .Replace("Your", possessiveName)
+                                .Replace("your", possessiveName);
         }
     }
 }
