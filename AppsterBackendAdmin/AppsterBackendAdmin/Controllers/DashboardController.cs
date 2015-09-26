@@ -18,8 +18,8 @@ namespace AppsterBackendAdmin.Controllers
         {
             var business = new LoadDataBusiness();
             var model = new DashboardViewModel();
-            model.NewAddedUsers = business.LoadNewAddedUsers(10);
-            model.NewAddedAdmins = business.LoadNewAddedAdmins(10);
+            model.NewAddedUsers = business.LoadNewAddedUsers(5);
+            model.NewAddedAdmins = business.LoadNewAddedAdmins(5);
             model.Newsfeed = business.LoadNewfeeds(5);
             return View(model);
         }
