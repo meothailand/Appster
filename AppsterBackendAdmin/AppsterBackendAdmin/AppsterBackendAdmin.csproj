@@ -524,6 +524,7 @@
     <Content Include="Content\img\colorpicker_bk\hue-horizontal.png" />
     <Content Include="Content\img\colorpicker_bk\hue.png" />
     <Content Include="Content\img\colorpicker_bk\saturation.png" />
+    <Content Include="Content\img\feeds.png" />
     <Content Include="Content\img\gift_rec_new.png" />
     <Content Include="Content\img\gift_send_new.png" />
     <Content Include="Content\img\icon_del.png" />
