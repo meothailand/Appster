@@ -144,5 +144,50 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                 return feeds.ToList();         
             }
         }
+
+
+        public void DeleteUser(Func<user, bool> predicate)
+        {
+            using (var context = new appsterEntities())
+            {
+                var users = context.users.Where(predicate);
+                if(users.Count()> 0)
+                {
+                    context.users.RemoveRange(users);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteUser(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void SuspendUser(Func<user, bool> predicate)
+        {
+            using (var context = new appsterEntities())
+            {
+                context.Configuration.AutoDetectChangesEnabled = false;
+                var users = context.users.Where(predicate);
+                foreach (var usr in users)
+                {
+                    usr.status = 0;
+                    context.Entry(usr).State = System.Data.Entity.EntityState.Modified;
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void SuspendUser(int userId)
+        {
+            using (var context = new appsterEntities())
+            {
+                var dbUser = context.users.SingleOrDefault(i => i.id == userId);
+                dbUser.status = 0;
+                context.SaveChanges();
+            }
+        }
     }
 }

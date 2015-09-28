@@ -185,6 +185,7 @@
     </Compile>
     <Compile Include="Models\Business\BaseBusinessModel.cs" />
     <Compile Include="Models\Business\Newsfeed.cs" />
+    <Compile Include="Models\Business\Purchase.cs" />
     <Compile Include="Models\Business\User.cs" />
     <Compile Include="Models\cash_backs.cs">
       <DependentUpon>Appster.tt</DependentUpon>
