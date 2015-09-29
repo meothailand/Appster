@@ -150,12 +150,21 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
         {
             using (var context = new appsterEntities())
             {
+                context.Configuration.AutoDetectChangesEnabled = false;
                 var users = context.users.Where(predicate);
-                if(users.Count()> 0)
+                try
                 {
-                    context.users.RemoveRange(users);
+                    if (users.Count() > 0)
+                    {
+                        context.users.RemoveRange(users);                        
+                    }
+                }
+                finally
+                {
+                    context.Configuration.AutoDetectChangesEnabled = true;
                     context.SaveChanges();
                 }
+                
             }
         }
 
@@ -171,12 +180,19 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             {
                 context.Configuration.AutoDetectChangesEnabled = false;
                 var users = context.users.Where(predicate);
-                foreach (var usr in users)
+                try
                 {
-                    usr.status = 0;
-                    context.Entry(usr).State = System.Data.Entity.EntityState.Modified;
+                    foreach (var usr in users)
+                    {
+                        usr.status = 0;
+                        context.Entry(usr).State = System.Data.Entity.EntityState.Modified;
+                    }
                 }
-                context.SaveChanges();
+                finally
+                {
+                    context.Configuration.AutoDetectChangesEnabled = true;
+                    context.SaveChanges();
+                }            
             }
         }
 

@@ -9,6 +9,7 @@
                     <th>Email</th>
                     <th><div class="centered">Gender</div></th>
                     <th class="referal">Referral ID</th>
+                    <th>Status</th>
                     <th class="gift_user_send">Gift Sent</th>
                     <th class="gift_user_rec">Gift received</th>
                     <th>Actions</th>
@@ -28,6 +29,7 @@
                                 @(string.IsNullOrWhiteSpace(user.gender) || user.gender == "Female" ? "M" : "F")
                             </td>
                             <td>@user.referral_id</td>
+                            <td>@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>
                             <td>@user.gift_sent_count</td>
                             <td>@user.gift_received_count</td>
 
@@ -49,10 +51,6 @@
                                             <li>
                                                 <a href="/admin/users/suspend?id=98805&amp;status=1" onclick="if (confirm('Are you sure you want to Suspend the User?' )) { return true; } return false;">
                                                     <img src="~/Content/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                            </li>
-                                            <li>
-                                                <a href="/admin/users/delete/98805" onclick="if (confirm('Are you sure you want to Delete the User')) { return true; } return false;">
-                                                    <img src="~/Content/img/icon_del.png" alt="delete"> Delete</a>
                                             </li>
                                         </ul>
                                     </div>

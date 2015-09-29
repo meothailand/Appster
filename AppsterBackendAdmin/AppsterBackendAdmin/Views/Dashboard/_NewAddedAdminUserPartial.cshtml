@@ -8,6 +8,7 @@
                     <th>Name</th>
                     <th>User name</th>
                     <th>Email</th>
+                    <th>Status</th>
                     <th><div class="centered">Access Level</div></th>
                     <th>Actions</th>
                 </tr>
@@ -23,6 +24,7 @@
                             <td>@user.display_name</td>
                             <td>@user.username</td>
                             <td>@user.email</td>
+                            <td>@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>
                             <td class="centered">
                                @user.AccessLevel
                             </td>
@@ -44,11 +46,6 @@
                                             <li>
                                                 <a href="/admin/users/suspend?id=98805&amp;status=1" onclick="if (confirm('Are you sure you want to Suspend the User?' )) { return true; } return false;">
                                                     <img src="~/Content/img/icon_invalid.png" alt="suspend" /> Suspend
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/admin/users/delete/98805" onclick="if (confirm('Are you sure you want to Delete the User')) { return true; } return false;">
-                                                    <img src="~/Content/img/icon_del.png" alt="delete"> Delete
                                                 </a>
                                             </li>
                                         </ul>
