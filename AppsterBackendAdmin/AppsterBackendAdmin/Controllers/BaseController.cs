@@ -15,9 +15,11 @@ namespace AppsterBackendAdmin.Controllers
         //public IDataAccess Context { get; private set; }
         public AccountPasswordHelper PasswordHelper {get; private set;}
         public LoadDataBusiness DataLoader { get; private set; }
+        public ModifyDataBusiness DataModifier { get; private set; }
         public BaseController()
         {
             DataLoader = LoadDataBusiness.Instance;
+            DataModifier = ModifyDataBusiness.Instance;
             PasswordHelper = AccountPasswordHelper.Instance;
         }
 
