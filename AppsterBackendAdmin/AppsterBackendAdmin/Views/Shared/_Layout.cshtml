@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@model AppsterBackendAdmin.Models.View.ViewModelBase
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>
-        Appster Admin Panel:
-        Users
+        Appster Admin Panel: @Model.PageTitle
     </title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/Content/css/font-icons/entypo/css/entypo.css">
@@ -20,17 +20,9 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 
     @*<link rel="stylesheet" href="/resources/demos/style.css">*@
-
+    @RenderSection("customStyles", required:false)
 </head>
-<body class="page-body" data-url="http://neon.dev">
-    <script>
-        $(document).ready(function() {
-            // fade out flash 'success' messages
-            $('#flashMessage').delay("2000").slideUp("2000");
-            $('#authMessage').delay("2000").slideUp("2000");
-            $('.msgerror').delay("2000").slideUp("2000");
-        });
-    </script>
+<body class="page-body" data-url="http://neon.dev">  
 
     <div class="page-container">
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -227,6 +219,7 @@
     <script type="text/javascript" src="/Content/js/jquery.timepicker.min.js"></script>
     <script type="text/javascript" src="/Content/js/jquery.colorbox.js"></script>
     <script>
+        var appBaseUrl = window.location.protocol + "//" + window.location.host + "@Request.ApplicationPath";
         $(document).ready(function(){
             //remove the <hr>
             $('.main-content hr').remove();
@@ -268,7 +261,13 @@
 
             });
 
+            // fade out flash 'success' messages
+            $('#flashMessage').delay("2000").slideUp("2000");
+            $('#authMessage').delay("2000").slideUp("2000");
+            $('.msgerror').delay("2000").slideUp("2000");
+
     });
     </script>
+    @RenderSection("customScripts", required:false)
 </body>
 </html>

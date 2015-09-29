@@ -21,20 +21,20 @@
                     foreach (var user in Model.NewAddedUsers)
                     {
                         count += 1;
-                        <tr>
+                        <tr id="@user.id">
                             <td class="centered">@count</td>
-                            <td>@user.display_name</td>
-                            <td>@user.email</td>
+                            <td rel="data-user-name">@user.display_name</td>
+                            <td rel="data-user-email">@user.email</td>
                             <td class="centered">
                                 @(string.IsNullOrWhiteSpace(user.gender) || user.gender == "Female" ? "M" : "F")
                             </td>
                             <td>@user.referral_id</td>
-                            <td>@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>
+                            <td rel="data-user-status-@user.id-@user.status">@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>
                             <td>@user.gift_sent_count</td>
                             <td>@user.gift_received_count</td>
 
                             <td>
-                                <div id="dropdown1" class="dropdown">
+                                <div class="dropdown">
                                     <a class="account" id="">
                                         <span>
                                             <img src="~/Content/img/btn_dropdown.png" alt="">
@@ -44,12 +44,11 @@
                                     <div class="submenu" style="display: none; ">
                                         <div class="top2"></div>
                                         <ul class="root">
-
                                             <li>
-                                                <a href="/admin/users/edit/98805"><img src="~/Content/img/icon_edit.png" alt="edit"> Edit</a>
+                                                <a href="/users/edituser/@user.id"><img src="~/Content/img/icon_edit.png" alt="edit"> Edit</a>
                                             </li>
                                             <li>
-                                                <a href="/admin/users/suspend?id=98805&amp;status=1" onclick="if (confirm('Are you sure you want to Suspend the User?' )) { return true; } return false;">
+                                                <a href="javascript:void(0);" rel="data-suspend-user-@user.id" class="suspend-user">
                                                     <img src="~/Content/img/icon_invalid.png" alt="suspend"> Suspend</a>
                                             </li>
                                         </ul>
@@ -57,7 +56,6 @@
                                 </div>
                             </td>
                         </tr>
-
                     }
                 }
             </tbody>

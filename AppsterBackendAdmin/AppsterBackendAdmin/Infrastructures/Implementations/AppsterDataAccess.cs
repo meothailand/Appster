@@ -51,11 +51,19 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
-        public IEnumerable<Models.user> GetUsers(Func<Models.user, bool> predicate, int? take)
+        public IEnumerable<Models.user> GetUsers(Func<Models.user, bool> predicate, int? take, int? cursor, bool loadBack = false)
         {
             using (var context = new appsterEntities())
             {
-                var users = context.users.Where(predicate);
+                cursor = cursor.HasValue ? cursor : 0;
+                var users = loadBack ?
+                     from data in context.users.Where(predicate) 
+                     where data.id < cursor.Value
+                     select data : 
+                     from data in context.users.Where(predicate)
+                       where data.id > cursor.Value
+                       select data;
+
                 if (take.HasValue && take.Value > 0) return users.Take(take.Value).ToArray();
                 return users.ToArray();
             }
@@ -142,67 +150,6 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                                    });
                 if (take.HasValue && take > 0) feeds = feeds.Take(take.Value);
                 return feeds.ToList();         
-            }
-        }
-
-
-        public void DeleteUser(Func<user, bool> predicate)
-        {
-            using (var context = new appsterEntities())
-            {
-                context.Configuration.AutoDetectChangesEnabled = false;
-                var users = context.users.Where(predicate);
-                try
-                {
-                    if (users.Count() > 0)
-                    {
-                        context.users.RemoveRange(users);                        
-                    }
-                }
-                finally
-                {
-                    context.Configuration.AutoDetectChangesEnabled = true;
-                    context.SaveChanges();
-                }
-                
-            }
-        }
-
-        public void DeleteUser(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void SuspendUser(Func<user, bool> predicate)
-        {
-            using (var context = new appsterEntities())
-            {
-                context.Configuration.AutoDetectChangesEnabled = false;
-                var users = context.users.Where(predicate);
-                try
-                {
-                    foreach (var usr in users)
-                    {
-                        usr.status = 0;
-                        context.Entry(usr).State = System.Data.Entity.EntityState.Modified;
-                    }
-                }
-                finally
-                {
-                    context.Configuration.AutoDetectChangesEnabled = true;
-                    context.SaveChanges();
-                }            
-            }
-        }
-
-        public void SuspendUser(int userId)
-        {
-            using (var context = new appsterEntities())
-            {
-                var dbUser = context.users.SingleOrDefault(i => i.id == userId);
-                dbUser.status = 0;
-                context.SaveChanges();
             }
         }
     }

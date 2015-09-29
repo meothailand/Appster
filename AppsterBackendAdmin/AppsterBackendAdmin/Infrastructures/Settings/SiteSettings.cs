@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,18 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
                 case 1: return AccountStatus.Active;
                 default: return AccountStatus.Unknown;
             }
+        }
+
+        public static string GetProfileImagePath(string fileName)
+        {
+            var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaProfileImageLocation"], fileName);
+            return path;
+        }
+
+        public static string GetPostMediaFilePath(string fileName)
+        {
+            var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaPostUploadLocation"], fileName);
+            return path;
         }
     }
 }

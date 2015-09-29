@@ -1,5 +1,6 @@
 ﻿using AppsterBackendAdmin.Infrastructures.Exceptions;
 using AppsterBackendAdmin.Infrastructures.Security;
+using AppsterBackendAdmin.Models;
 using AppsterBackendAdmin.Models.Business;
 using AppsterBackendAdmin.Models.View;
 using System;
@@ -39,7 +40,20 @@ namespace AppsterBackendAdmin.Business
             return feeds.Select(i => new Newsfeed(i)).ToList();
         }
 
+        public User LoadUser(Func<user, bool> predicate)
+        {
+            var data = Context.GetUser(predicate);
 
+            if (data != null) return new User(data);
+            return null;
+        }
+
+        public List<User> LoadUsers(Func<user, bool> predicate, int? take, int? cursor, bool loadBack = false)
+        {
+            var data = Context.GetUsers(predicate, take, cursor, loadBack).ToList();
+            var result = data.Select(i => new User(i)).ToList();
+            return result;
+        }
 
         /// <summary>
         /// Sign in with user name and password

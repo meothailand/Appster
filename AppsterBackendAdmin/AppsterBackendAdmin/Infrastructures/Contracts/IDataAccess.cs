@@ -22,7 +22,7 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         /// <returns></returns>
         IEnumerable<role> GetRoles();
         user GetUser(Func<user, bool> predicate);
-        IEnumerable<user> GetUsers(Func<user, bool> predicate, int? take);
+        IEnumerable<user> GetUsers(Func<user, bool> predicate, int? take, int? cursor, bool loadBack = false);
         IEnumerable<user> GetNewAddedUser(int? take, bool getAdminUser = false);
         post GetPost(Func<post, bool> predicate);
         IEnumerable<post> GetPosts(Func<post, bool> predicate);
@@ -44,6 +44,23 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         /// </summary>
         /// <param name="userId"></param>
         void SuspendUser(int userId);
+        /// <summary>
+        /// Update existing user which new information
+        /// </summary>
+        /// <param name="updatedUser"></param>
+        /// <exception cref="UsernameAlreadyExistException"></exception>
+        /// <exception cref="EmailAlreadyExistException"></exception>
+        /// <exception cref="DatabaseExecutionException"></exception>
+        Task UpdateUser(user updatedUser);
+        /// <summary>
+        /// Create new user
+        /// </summary>
+        /// <param name="newUser"></param>
+        /// <returns></returns>
+        /// <exception cref="UsernameAlreadyExistException"></exception>
+        /// <exception cref="EmailAlreadyExistException"></exception>
+        /// <exception cref="DatabaseExecutionException"></exception>
+        Task<int> CreateUser(user newUser);
         #endregion
 
         #region Delete Data
