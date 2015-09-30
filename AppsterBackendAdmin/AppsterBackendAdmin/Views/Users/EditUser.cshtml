@@ -1,7 +1,117 @@
-﻿
-@{
-    ViewBag.Title = "EditUser";
+﻿@model AppsterBackendAdmin.Models.View.EditUserViewModel
+
+@section bodyContent{
+   <div class="row">
+    <div class="col-md-6 col-sm-8 clearfix">
+    </div>
+</div>
+<div class="k">
+    <div id="crumbs">
+        <ul>
+            <li><a href="/Users">User</a></li>
+            <li>Edit</li>
+        </ul>
+    </div>
+    <div class="back_bbb">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary panel_primary_user">
+            @using (Html.BeginForm("edituser", "users", Model.Value, FormMethod.Post,
+             new { @class = "form-horizontal form-groups-bordered common_image", @id = "edit-user-form", @enctype = "multipart/form-data", @acceptCharset = "utf-8" }))
+            {
+                <div class="submit edit_del circle_image_users">
+                    <img src="@Model.Value.image" id="profile_img" alt="@Model.Value.username" style="width:161px; height:154px;" />
+                    <div class="input file"><input name="profileImage" id="profileImage" class="hidden_image" type="file"></div>
+                    <div id="old_image" style="display: block;">
+                        <span>
+                        </span>
+                    </div>
+                    <div>
+                        <ul style="clear:both;" id="files"></ul>
+                    </div>
+                </div>
+                <section class="form_area">
+                    <div class="input_text">
+                        <input class="form-control" id="display_name" name="display_name" placeholder="Display name" title="Display name" value="@Model.Value.display_name" type="text" required="required">  
+                    </div>
+                    <div class="input_text">
+                        <input class="form-control" id="username" name="username" placeholder="User name" title="User name" value="@Model.Value.username" type="text" readonly="readonly">  
+                    </div>
+                    <div class="input_text">
+                        <input class="form-control" id="email" name="email" placeholder="Email address" title="Email address" value="@Model.Value.email" type="text">                       
+                    </div>
+                    <div class="input_text">
+                        <input class="form-control" id="newPassword" maxlength="20" name="newPassword" placeholder="Change password" value="" type="password" title="New password">
+                    </div>
+                    <div class="input_text">
+                        <div class="input select required">
+                            <select name="gender" id="gender" required="required">
+                                <option value="">Select gender</option>
+                                <option value="Male" selected="selected">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="input_text">
+                        <input name="dob" id="dob" placeholder="DOB" class="form-control" readonly="readonly" title="Date of birth"
+                               value="@(Model.Value.dob != DateTime.MinValue ? @Model.Value.dob.ToString("dd/MM/yyyy") : "")" required="required" type="text">
+                    </div>
+
+                    <div class="anoter">
+                        <section class="right_side">
+                            <div class="submit edit_del">
+                                <input name="register" class="grey_btn" value="Update" type="submit">
+                                <a href="/users"><input name="" value="Cancel" class="grey_btn" type="button"></a>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            }
+        </div>
+    </div>
+</div>
 }
 
-<h2>EditUser</h2>
 
+@section customScripts{
+<script src="~/Content/js/jquery.fileupload.js"></script>
+<script>
+
+    // When the server is ready..
+
+    $ = jQuery.noConflict();
+
+    $(document).ready(function () {
+        $("#profileImage").on("change", function () {
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+
+            if (/^image/.test(files[0].type)) { // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function () { // set image data as background of div
+                    jobImage = this.result;
+
+                    //$('#img_div_pre').show();
+                    $("#profile_img").attr("src", jobImage);
+
+                }
+            }
+        });
+
+        //code for the date picker
+        $('#dob').datepicker({
+            dateFormat: "dd/mm/yy",
+            yearRange: '1950:' + new Date().getFullYear(),
+            changeMonth: true,
+            changeYear: true,
+        });
+    });
+
+</script>
+}

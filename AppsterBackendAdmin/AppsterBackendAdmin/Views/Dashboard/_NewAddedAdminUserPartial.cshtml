@@ -21,7 +21,7 @@
                         count += 1;
                         <tr id="@user.id">
                             <td class="centered">@count</td>
-                            <td rel="data-user-name">@user.display_name</td>
+                            <td id="data-user-name-@user.id" title="@user.display_name">@user.display_name</td>
                             <td rel="data-user-username">@user.username</td>
                             <td rel="data-user-email">@user.email</td>
                             <td rel="data-user-status-@user.id-@user.status">@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>
@@ -43,7 +43,7 @@
                                                 <a href="/users/edituser/@user.id"><img src="~/Content/img/icon_edit.png" alt="edit"> Edit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);" rel="data-suspend-user-@user.id" class="suspend-user">
+                                                <a href="javascript:void(0);" rel="data-user-suspend-@user.id" class="suspend-user">
                                                     <img src="~/Content/img/icon_invalid.png" alt="suspend" /> Suspend
                                                 </a>
                                             </li>

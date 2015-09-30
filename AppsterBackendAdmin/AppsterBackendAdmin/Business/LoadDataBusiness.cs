@@ -64,7 +64,7 @@ namespace AppsterBackendAdmin.Business
             return result;
         }
 
-        public List<User> LoadUsersByPage(Func<user, bool> predicate, int page, PagingHelper pagingInfo, bool loadBack = false, int take = 20)
+        public List<User> LoadUsersByPage(Func<user, bool> predicate, int page, out PagingHelper pagingInfo, bool loadBack = false, int take = 20)
         {
             var data = Context.GetUsersByPage(predicate, loadBack, take, page, out pagingInfo);            
             var result = data.Select(i => new User(i)).ToList();

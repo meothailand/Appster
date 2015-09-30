@@ -1,5 +1,5 @@
-﻿
-@model AppsterBackendAdmin.Models.View.ViewModelBase
+﻿@model AppsterBackendAdmin.Models.View.UsersViewModel
+
 @section bodyContent{
 
     <div class="unauth"> </div>
@@ -21,537 +21,61 @@
                         <thead>
                             <tr>
                                 <th class="centered">No.</th>
-                                <th><a href="/admin/Users/index/sort:User.display_name/direction:asc">Name</a></th>
-                                <th class="email_use"><a href="/admin/Users/index/sort:User.email/direction:asc">Email</a></th>
-                                <th class="centered"><a href="/admin/Users/index/sort:User.gender/direction:asc">Gender</a></th>
-                                <th><a href="/admin/Users/index/sort:User.referral_id/direction:asc">Referral ID</a></th>
+                                <th><a href="javascript:void(0);">Name</a></th>
+                                <th class="email_use"><a href="javascript:void(0);">Email</a></th>
+                                <th class="centered"><a href="javascript:void(0);">Gender</a></th>
+                                <th><a href="javascript:void(0);">Referral ID</a></th>
+                                <th>Status</th>
                                 <th class="gift_user_send">Gift Sent</th>
                                 <th class="gift_user_rec">Gift Received</th>
                                 <th class="act_user">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="">
-                                <td class="centered">1</td>
-                                <td><a href="/admin/users/view/98804" target="_blank">Robert</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98804"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98804&amp;status=0" onclick="if (confirm(&quot;Are you sure you want to Activate the User 'Robert'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Activate</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98804" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Robert'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="grey">
-                                <td class="centered">2</td>
-                                <td><a href="/admin/users/view/98803" target="_blank">Albert</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98803"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98803&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'Albert'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98803" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Albert'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="">
-                                <td class="centered">3</td>
-                                <td><a href="/admin/users/view/98802" target="_blank">Jackson</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">1</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98802"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98802&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'Jackson'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98802" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Jackson'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="grey">
-                                <td class="centered">4</td>
-                                <td><a href="/admin/users/view/98801" target="_blank">Andrew</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98801"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98801&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'Andrew'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98801" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Andrew'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="">
-                                <td class="centered">5</td>
-                                <td><a href="/admin/users/view/98800" target="_blank">Emily</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98800"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98800&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'Emily'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98800" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Emily'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="grey">
-                                <td class="centered">6</td>
-                                <td><a href="/admin/users/view/98799" target="_blank">aabb</a>				            </td>
-                                <td>viet.tranxuan@yahoo.com</td>
-                                <td class="centered">M</td>
-                                <td>58466</td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98799"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98799&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'aabb'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98799" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'aabb'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="">
-                                <td class="centered">7</td>
-                                <td><a href="/admin/users/view/98798" target="_blank">rtuihff</a>				            </td>
-                                <td>trtg@fhhh.com</td>
-                                <td class="centered">M</td>
-                                <td>72855</td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98798"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98798&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'rtuihff'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98798" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'rtuihff'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--<div id="dropdown1" class="dropdown">
-                                    <a class="account" id="1">
-                                    <span> <!--<img alt="" src="images/btn_dropdown.png">
-                                                            </span>
-                                    </a>
-                                    <div class="submenu"  style="display: none;">
-                                      <ul class="root">
-                                        <li>
-                                          <!--<img alt="" src="images/icon_edit.png">Edit
-                                                                    </li>
-                                            <li>
-                                          <a href="#settings"><img alt="" src="images/icon_invalid.png">Suspend</a>
-                                        </li>
-                                        <li>
-                                          <a href="#feedback"><img alt="" src="images/icon_del.png">Delete</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    </div>-->
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="grey">
-                                <td class="centered">8</td>
-                                <td><a href="/admin/users/view/98797" target="_blank">tihhv</a>				            </td>
-                                <td>ho@ho.com</td>
-                                <td class="centered">M</td>
-                                <td>25257</td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98797"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98797&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'tihhv'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98797" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'tihhv'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="">
-                                <td class="centered">9</td>
-                                <td><a href="/admin/users/view/98794" target="_blank">aabb</a>				            </td>
-                                <td>b@gmail.com</td>
-                                <td class="centered">M</td>
-                                <td>91809</td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98794"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98794&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'aabb'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98794" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'aabb'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-
-
-                            <tr class="grey">
-                                <td class="centered">10</td>
-                                <td><a href="/admin/users/view/98771" target="_blank">Flyette</a>				            </td>
-                                <td></td>
-                                <td class="centered">F</td>
-                                <td></td>
-                                <td class="centered_send">--</td>
-                                <td class="centered_rec">--</td>
-
-                                <td>
-                                    <div class="dropdown" id="dropdown1">
-                                        <a id="" class="account">
-                                            <span> <img src="/img/btn_dropdown.png" title="Setting" alt="">									</span>
-                                        </a>
-                                        <div class="submenu" style="display: none; ">
-                                            <div class="top2"></div>
-                                            <ul class="root">
-                                                <li>
-                                                    <a href="/admin/users/edit/98771"><img src="/img/icon_edit.png" alt="edit"> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/suspend?id=98771&amp;status=1" onclick="if (confirm(&quot;Are you sure you want to Suspend the User 'Flyette'?&quot;)) { return true; } return false;"><img src="/img/icon_invalid.png" alt="suspend"> Suspend</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/users/delete/98771" onclick="if (confirm(&quot;Are you sure you want to Delete the User 'Flyette'?&quot;)) { return true; } return false;"><img src="/img/icon_del.png" alt="delete"> Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @{
+                                var count = 0;
+                                foreach (var u in Model.ListUsers)
+                                {
+                                    count += 1;
+                                    <tr class="@((count%2) > 0 ? "" : "grey")">
+                                        <td class="centered">@count</td>
+                                        <td id="data-user-name-@u.id" title="@u.display_name"><a href="/users/view/@u.id" target="_blank">@u.display_name</a></td>
+                                        <td>@u.email</td>
+                                        <td class="centered">@(u.gender.Substring(0, 1))</td>
+                                        <td>@u.referral_id</td>
+                                        <td rel="data-user-status-@u.id-@u.status">@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(@u.status)</td>
+                                        <td class="centered_send">@u.gift_sent_count</td>
+                                        <td class="centered_rec">@u.gift_received_count</td>
+                                        <td>
+                                            <div class="dropdown" id="dropdown1">
+                                                <a id="" class="account">
+                                                    <span><img src="~/Content/img/btn_dropdown.png" title="Setting" alt=""></span>
+                                                </a>
+                                                <div class="submenu" style="display: none; ">
+                                                    <div class="top2"></div>
+                                                    <ul class="root">
+                                                        <li>
+                                                            <a href="/users/edituser/@u.id"><img src="~/Content/img/icon_edit.png" alt="edit"> Edit</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0);" rel="data-user-suspend-@u.id" class="suspend-user"><img src="~/Content/img/icon_invalid.png" alt="suspend" />Suspend|Activate</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
-
-
-
-                <article class="pagination">
-                    <aside class="left"></aside>
-                    <aside class="left">
-                        <span class="paging-prev-disable disabled">&lt; </span>
-                    </aside>
-                    <ul class="pages left">
-                        <span class="current">1</span>
-                        <span><a href="/admin/Users/index/page:2/sort:User.id/direction:DESC">2</a></span>
-                        <span><a href="/admin/Users/index/page:3/sort:User.id/direction:DESC">3</a></span>
-                        <span><a href="/admin/Users/index/page:4/sort:User.id/direction:DESC">4</a></span>
-                        <span><a href="/admin/Users/index/page:5/sort:User.id/direction:DESC">5</a></span>
-                        <span><a href="/admin/Users/index/page:6/sort:User.id/direction:DESC">6</a></span>
-                        <span><a href="/admin/Users/index/page:7/sort:User.id/direction:DESC">7</a></span>
-                        <span><a href="/admin/Users/index/page:8/sort:User.id/direction:DESC">8</a></span>
-                        <span><a href="/admin/Users/index/page:9/sort:User.id/direction:DESC">9</a></span>
-                    </ul>
-                    <aside class="right">
-                        <span class="next"><a href="/admin/Users/index/page:2/sort:User.id/direction:DESC" rel="next"> &gt;</a></span>
-                    </aside>
-                    <aside class="">
-                        <span class="paging-next-enable"><a href="/admin/Users/index/page:36/sort:User.id/direction:DESC" rel="last">&gt;&gt; last</a></span>
-                    </aside>
-                </article>
-
-
+                @Html.Partial("~/Views/Shared/_PagingPartial.cshtml", Model.Paging)
             </div>
         </div>
     </div>
-
-    <!-------------------------------------------->
 }
 
+@section customScripts{
+ <script type="text/javascript" src="~/Scripts/page.dashboard.js"></script>
+}

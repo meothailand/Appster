@@ -45,6 +45,7 @@ namespace AppsterBackendAdmin.Models.Business
         {
             ModelObjectHelper.CopyObject(entity, this);
             this.image = SiteSettings.GetProfileImagePath(this.image);
+            this.gender = string.IsNullOrWhiteSpace(this.gender) ? "Male" : this.gender; 
         }
 
         public User(user entity, IEnumerable<role> roles) : this(entity)

@@ -7,14 +7,14 @@
         Appster Admin Panel: @Model.PageTitle
     </title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/Content/css/font-icons/entypo/css/entypo.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/neon-theme.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/neon-forms.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/jquery.timepicker.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/colorbox.css">
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/css/font-icons/entypo/css/entypo.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("/Content/css/bootstrap.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("/Content/css/style.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("/Content/css/neon-theme.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("/Content/css/neon-forms.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/css/custom.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/css/jquery.timepicker.css")">
+    <link rel="stylesheet" type="text/css" href="@Href("~/Content/css/colorbox.css")">
     <link href="/favicon.ico" type="image/x-icon" rel="icon">
     <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
@@ -22,7 +22,7 @@
     @*<link rel="stylesheet" href="/resources/demos/style.css">*@
     @RenderSection("customStyles", required:false)
 </head>
-<body class="page-body" data-url="http://neon.dev">  
+<body class="page-body">  
 
     <div class="page-container">
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -213,23 +213,16 @@
         </div>
         <div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div>
     </div>
-    <script type="text/javascript" src="/Content/js/jquery.min2.1.1.js"></script>
-    <script type="text/javascript" src="/Content/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="/Content/js/dropdown.js"></script>
-    <script type="text/javascript" src="/Content/js/jquery.timepicker.min.js"></script>
-    <script type="text/javascript" src="/Content/js/jquery.colorbox.js"></script>
+    <script type="text/javascript" src="@Href("~/Content/js/jquery.min2.1.1.js")"></script>
+    <script type="text/javascript" src="@Href("~/Content/js/jquery-ui.js")"></script>
+    <script type="text/javascript" src="@Href("~/Content/js/dropdown.js")"></script>
+    <script type="text/javascript" src="@Href("~/Content/js/jquery.timepicker.min.js")"></script>
+    <script type="text/javascript" src="@Href("~/Content/js/jquery.colorbox.js")"></script>
     <script>
         var appBaseUrl = window.location.protocol + "//" + window.location.host + "@Request.ApplicationPath";
         $(document).ready(function(){
             //remove the <hr>
             $('.main-content hr').remove();
-
-            //code for the date picker
-            $('#datepicker').datepicker({dateFormat: "dd/mm/yy",
-                yearRange: '1950:' + new Date().getFullYear(),
-                changeMonth: true,
-                changeYear: true,
-            });
 
             $('#event_time').timepicker({disableTextInput:true});
             $('#event_time').keydown(function(e) {

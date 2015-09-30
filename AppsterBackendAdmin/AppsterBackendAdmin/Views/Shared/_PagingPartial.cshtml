@@ -1,0 +1,62 @@
+﻿@model TwinkleStars.Infrastructure.Utils.PagingHelper
+<article class="pagination">
+    @{
+        var jump = 8;
+        var partitionCount = Model.TotalPage % jump > 0 ? (Model.TotalPage / jump) + 1 : (Model.TotalPage / jump);
+        var currentPartition = Model.CurentPage % jump > 0 ? (Model.CurentPage / jump) + 1 : Model.CurentPage / jump;
+
+        <aside class="left"></aside>
+        if (Model.CurentPage == 1)
+        {
+            <aside class="left">
+                <span class="paging-prev-disable disabled">&lt; </span>
+            </aside>
+        }
+        else
+        {
+            <aside class="left">
+                <span class="paging-prev-disable"><a href="/users?page=1" rel="first">&lt;&lt; first</a></span>
+            </aside>
+            <aside class="left">
+                <span class="paging-prev-disable"><a href="/users?page=@(Model.CurentPage-1)" rel="prev">&lt; </a></span>
+            </aside>
+        }
+        var partitionStart = (currentPartition - 1) * jump + 1;
+        var partitionEnd = (currentPartition * jump) > Model.TotalPage ? Model.TotalPage : (currentPartition * jump);
+        <ul class="pages left">
+            @for (var i = partitionStart; i <= partitionEnd; i++)
+            {
+                if (i == Model.CurentPage)
+                {
+                    <span class="current">@i</span>
+                }
+                else
+                {
+                    <span>@Html.ActionLink(@i.ToString(), "index", new { @page = i })</span>
+                }
+            }
+        </ul>
+        if (Model.CurentPage < Model.TotalPage)
+        {
+            <aside class="left">
+                <span class="paging-next-enable">
+                    <a href="/users?page=@(Model.CurentPage + 1)" rel="next"> &gt;</a>
+                </span>
+            </aside>
+            <aside class="left">
+                <span class="paging-next-enable">
+                    <a href="/users?page=@Model.TotalPage" rel="last">&gt;&gt; last</a>
+                </span>
+            </aside>
+        }
+        else
+        {
+            <aside class="left">
+                <span class="paging-next-disable">&gt; </span>
+            </aside>
+        }
+
+    }
+
+</article>
+

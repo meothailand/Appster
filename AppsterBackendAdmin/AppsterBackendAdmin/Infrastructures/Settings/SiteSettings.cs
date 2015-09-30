@@ -27,6 +27,7 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
 
         public static string GetProfileImagePath(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName)) return ConfigurationManager.AppSettings["MediaProfileDefaultLocation"];
             var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaProfileImageLocation"], fileName);
             return path;
         }
@@ -40,6 +41,12 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
         public static string GetGiftFilePath(string fileName)
         {
             var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaGiftLocation"], fileName);
+            return path;
+        }
+
+        public static string GetApiPath(string relativeUrl)
+        {
+            var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["ApiBaseURL"], relativeUrl);
             return path;
         }
     }

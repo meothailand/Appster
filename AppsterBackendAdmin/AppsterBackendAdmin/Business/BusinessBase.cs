@@ -32,7 +32,7 @@ namespace AppsterBackendAdmin.Business
         {
             var expiration = DateTimeOffset.Now + TimeSpan.FromDays(2);
             var access = GetAccessType(user.role_id);
-            var token = Token.CreateAndSign(user.username, access, expiration);
+            var token = Token.CreateAndSign(user.username, user.image, access, expiration);
             return token.Signature;
         }
         /// <summary>

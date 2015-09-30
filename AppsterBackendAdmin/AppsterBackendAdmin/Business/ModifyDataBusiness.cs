@@ -33,6 +33,13 @@ namespace AppsterBackendAdmin.Business
         {
             if (createNew)
             {
+                var newUser = new user();
+                ModelObjectHelper.CopyObject(user, newUser);
+                var id = await Context.CreateUser(newUser);
+                return id;
+            }
+            else
+            {
                 var dbUser = Context.GetUser(i => i.id == user.id);
                 if (dbUser == null) throw new DataNotFoundException("This user is no longer exist");
                 dbUser.username = user.username;
@@ -42,13 +49,7 @@ namespace AppsterBackendAdmin.Business
                 dbUser.role_id = user.role_id;
                 await Context.UpdateUser(dbUser);
                 return user.id;
-            }
-            else
-            {
-                var newUser = new user();
-                ModelObjectHelper.CopyObject(user, newUser);
-                var id = await Context.CreateUser(newUser);
-                return id;
+                
             }
         }
     }

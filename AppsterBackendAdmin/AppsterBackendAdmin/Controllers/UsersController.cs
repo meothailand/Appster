@@ -4,11 +4,16 @@ using AppsterBackendAdmin.Models.Business;
 using AppsterBackendAdmin.Models.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TwinkleStars.Infrastructure.Utils;
 
 namespace AppsterBackendAdmin.Controllers
 {
@@ -18,7 +23,9 @@ namespace AppsterBackendAdmin.Controllers
         public ActionResult Index(int page = 1)
         {
             var model = new UsersViewModel();
-            model.ListUsers = DataLoader.LoadUsersByPage(i => i.role_id == 5, page, model.Paging, true, 20);
+            var pagingInfo = new PagingHelper();
+            model.ListUsers = DataLoader.LoadUsersByPage(i => i.role_id == 5, page, out pagingInfo, true, 20);
+            model.Paging = pagingInfo;
             model.PageTitle = "Users";
             return View(model);
         }
@@ -28,16 +35,24 @@ namespace AppsterBackendAdmin.Controllers
             var user = DataLoader.LoadUser(i => i.id == id);
             if (user != null)
             {
-                return View(user);
+                var model = new EditUserViewModel() { Value = user };
+                return View(model);
             }
             return View();
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<object> EditUser(User user, HttpPostedFileBase profileImage)
         {
             try
             {
+                var fileContent = Serialize(profileImage);
+                HttpClient httpClient = new HttpClient();
+                var content = new MultipartFormDataContent();
+                content.Add(new StreamContent(profileImage.InputStream), "image", profileImage.FileName);
+                var response = await httpClient.PostAsync(SiteSettings.GetApiPath("users/remote_update_profile"), content);
+                if (!response.IsSuccessStatusCode) throw new HttpException();
+                var fileName = await response.Content.ReadAsStringAsync();
                 await DataModifier.SaveUser(user);
                 return Json(new
                 {
@@ -76,15 +91,15 @@ namespace AppsterBackendAdmin.Controllers
         }
 
         [HttpPost]
-        public JsonResult SuspendUser(int id)
+        public JsonResult SuspendUser(int id, bool suspend = true)
         {
             try
             {
-                var updateStatus = DataModifier.Context.SuspendUser(id);
+                var updateStatus = DataModifier.Context.SuspendUser(id, suspend);
                 return Json(new
                     {
                         status = (int)HttpStatusCode.OK,
-                        userStatusText = AccountStatus.Suspended.ToString(),
+                        userStatusText = SiteSettings.UserStatus(updateStatus).ToString(),
                         userStatus = updateStatus
                     });
             }
@@ -97,6 +112,16 @@ namespace AppsterBackendAdmin.Controllers
                         status = code
                     });
             }
+        }
+
+        private byte[] Serialize(HttpPostedFileBase file)
+        {
+            var imageFile = new Bitmap(file.InputStream);
+            var formatter = new BinaryFormatter();
+            var msStream = new MemoryStream();
+            
+            formatter.Serialize(msStream, imageFile);
+            return msStream.ToArray();
         }
     }
 }

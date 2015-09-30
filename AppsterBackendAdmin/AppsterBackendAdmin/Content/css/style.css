@@ -40,7 +40,7 @@ important;
 .right a:hover {
 	background:#01b8c5;
 }
-input[type=submit] {
+input[type=submit], input[type=button] {
 	background-color:#0091a2;
 	padding:9px 35px;
 	color:#fff;
@@ -9596,10 +9596,10 @@ ul.listing li a {
 	color: #000;
 	cursor: pointer;
 	float: left;
-	padding: 6px 14%;
+	padding: 6px 5%;
 	text-decoration: none;
 	width: 100%;
-	font-size:15px;
+	font-size:12px;
 }
 .edit_del {
 	clear:both;

@@ -96,13 +96,13 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                 {
                     var data = (from users in context.users.Where(predicate)
                                 orderby users.id descending
-                                select users).Skip(skip).ToList().GetRange(pagingInfo.StartIndex, pagingInfo.Count);
+                                select users).Skip(skip).Take(pagingInfo.Count).ToList();
                     return data;
                 }
                 else
                 {
                     var data = (from users in context.users.Where(predicate)
-                                select users).Skip(skip).ToList().GetRange(pagingInfo.StartIndex, pagingInfo.Count);
+                                select users).Skip(skip).Take(pagingInfo.Count).ToList();
                     return data;
                 }
             }
