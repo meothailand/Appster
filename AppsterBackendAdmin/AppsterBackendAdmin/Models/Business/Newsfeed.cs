@@ -14,7 +14,7 @@ namespace AppsterBackendAdmin.Models.Business
         public string ReceiverName { get; set; }
         public string Message { get; set; }
         public DateTime CreatedDate { get; set; }
-        private Newsfeed(){  }
+        public Newsfeed(){  }
         public Newsfeed(dynamic value) : this()
         {
             ModelObjectHelper.CopyObject(value, this);

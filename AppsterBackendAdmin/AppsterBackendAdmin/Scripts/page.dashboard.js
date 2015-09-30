@@ -26,6 +26,36 @@
                 dashboardJs.handleAjaxCall(suspenUrl, 'POST', { id: id }, onSuccess, onError);     
             }           
         });
+
+        $('a.suspend-gift').unbind('click').click(function () {
+            var id = $(this).attr('rel').replace('data-gift-suspend-', '');
+            var currentStatus = $('td[rel="data-gift-status-' + id + '-0"]').attr('rel');
+            var status = currentStatus ? 0 : 1;
+            var message = status === 0 ? "Do you want to activate this gift?" : "Do you want to suspend this gift?";
+            if (confirm(message)) {
+                var suspenUrl = appBaseUrl + 'gift/suspendgift';
+                var isSuspend = status === 1 ? true : false;
+                var onError = function () {
+                    alert("Can not perform action. Refresh and try again or contact your web master for advice.");
+                    return false;
+                };
+                var onSuccess = function (data) {
+                    $('td[rel="data-gift-status-' + id + '-' + status + '"]').html(data.giftStatusText)
+                                                                    .attr('rel', 'data-gift-status-' + id + '-' + data.giftStatus);
+                    if (data.giftStatus === 0) {
+                        alert("Gift has been suspended");
+                    } else {
+                        alert("Gift has been activated");
+                    }
+                    return false;
+                }
+
+                dashboardJs.handleAjaxCall(suspenUrl, 'POST', { id: id , suspend : isSuspend }, onSuccess, onError);
+            }
+            else {
+                return false;
+            }
+        });
     },
     handleAjaxCall: function (url, method, data, successCallback, errorCallback) {
         $.ajax({

@@ -14,6 +14,7 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
     }
     public class SiteSettings
     {
+        public const string LoginSessionName = "AppsterLoginSession";
         public static AccountStatus UserStatus(int status)
         {
             switch (status)
@@ -33,6 +34,12 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
         public static string GetPostMediaFilePath(string fileName)
         {
             var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaPostUploadLocation"], fileName);
+            return path;
+        }
+
+        public static string GetGiftFilePath(string fileName)
+        {
+            var path = string.Format("{0}/{1}", ConfigurationManager.AppSettings["MediaGiftLocation"], fileName);
             return path;
         }
     }

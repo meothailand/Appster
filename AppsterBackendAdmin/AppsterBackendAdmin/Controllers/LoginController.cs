@@ -1,4 +1,5 @@
 ﻿using AppsterBackendAdmin.Infrastructures.Exceptions;
+using AppsterBackendAdmin.Infrastructures.Settings;
 using AppsterBackendAdmin.Models.View;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace AppsterBackendAdmin.Controllers
             try
             {
                 var accessKey = DataLoader.SignInUser(credential.UserName, credential.Password);
+                HttpContext.Session[SiteSettings.LoginSessionName] = accessKey;
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)

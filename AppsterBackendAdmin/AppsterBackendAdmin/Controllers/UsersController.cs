@@ -15,9 +15,10 @@ namespace AppsterBackendAdmin.Controllers
     public class UsersController : BaseController
     {
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            var model = new ViewModelBase();
+            var model = new UsersViewModel();
+            model.ListUsers = DataLoader.LoadUsersByPage(i => i.role_id == 5, page, model.Paging, true, 20);
             model.PageTitle = "Users";
             return View(model);
         }
@@ -79,19 +80,21 @@ namespace AppsterBackendAdmin.Controllers
         {
             try
             {
-                DataModifier.Context.SuspendUser(id);
+                var updateStatus = DataModifier.Context.SuspendUser(id);
                 return Json(new
                     {
                         status = (int)HttpStatusCode.OK,
                         userStatusText = AccountStatus.Suspended.ToString(),
-                        userStatus = 0
+                        userStatus = updateStatus
                     });
             }
             catch (Exception ex)
             {
+                var code = ex.GetType().GetType() == typeof(HttpException) ? ((HttpException)ex).ErrorCode :
+                           (int)HttpStatusCode.InternalServerError; 
                 return Json(new
                     {
-                        status = (int)HttpStatusCode.InternalServerError 
+                        status = code
                     });
             }
         }

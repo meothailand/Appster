@@ -135,6 +135,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GiftController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,6 +192,7 @@
       <DependentUpon>Appster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\BaseBusinessModel.cs" />
+    <Compile Include="Models\Business\Gifts.cs" />
     <Compile Include="Models\Business\Newsfeed.cs" />
     <Compile Include="Models\Business\Purchase.cs" />
     <Compile Include="Models\Business\SiteMainMenu.cs" />
@@ -534,6 +536,7 @@
     <Content Include="Content\img\colorpicker_bk\hue.png" />
     <Content Include="Content\img\colorpicker_bk\saturation.png" />
     <Content Include="Content\img\feeds.png" />
+    <Content Include="Content\img\gifts_new1.png" />
     <Content Include="Content\img\gift_rec_new.png" />
     <Content Include="Content\img\gift_send_new.png" />
     <Content Include="Content\img\icon_del.png" />
@@ -2164,9 +2167,11 @@
     <Content Include="Views\Error\Timeout.cshtml" />
     <Content Include="Views\Users\EditUser.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Dashboard\_NewAddedGiftPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Gift\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

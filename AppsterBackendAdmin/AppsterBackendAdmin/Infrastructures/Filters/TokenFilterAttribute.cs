@@ -1,5 +1,6 @@
 ﻿using AppsterBackendAdmin.Infrastructures.Exceptions;
 using AppsterBackendAdmin.Infrastructures.Security;
+using AppsterBackendAdmin.Infrastructures.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ namespace AppsterBackendAdmin.Infrastructures.Filters
 	    }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var tokenStr = filterContext.RequestContext.HttpContext.Request.Headers.GetValues(Token.SecurityHeaderName);
-            if (tokenStr == null || tokenStr.Count() == 0) throw new UnauthenticatedException();
-            var token = Token.ReadTokenFromString(tokenStr[0]);
+            var tokenStr = (string)HttpContext.Current.Session[SiteSettings.LoginSessionName];
+            if (tokenStr == null) throw new UnauthenticatedException();
+            var token = Token.ReadTokenFromString(tokenStr);
             if (token == null) throw new InvalidTokenException();
             token.Validate();
             if (!AllowAll && Array.IndexOf(AccessLevel, token.AccessLevel) < 0) throw new UnauthorizedAccessException();

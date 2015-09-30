@@ -16,26 +16,12 @@ namespace AppsterBackendAdmin.Controllers
     {
         public ActionResult Index()
         {
-            var business = new LoadDataBusiness();
             var model = new DashboardViewModel();
-            model.NewAddedUsers = business.LoadNewAddedUsers(5);
-            model.NewAddedAdmins = business.LoadNewAddedAdmins(5);
-            model.Newsfeed = business.LoadNewfeeds(5);
+            model.NewAddedUsers = DataLoader.LoadNewAddedUsers(5);
+            model.NewAddedAdmins = DataLoader.LoadNewAddedAdmins(5);
+            model.Newsfeed = DataLoader.LoadNewfeeds(5);
+            model.NewGifts = DataLoader.LoadGifts(5);
             return View(model);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        [TokenFilter]
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            return View();
         }
     }
 }

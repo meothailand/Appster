@@ -7,12 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TwinkleStars.Infrastructure.Utils;
 
 namespace AppsterBackendAdmin.Business
 {
     public partial class LoadDataBusiness : BusinessBase
     {
         #region initial
+        private LoadDataBusiness() { }
         public static LoadDataBusiness Instance { get; private set; }
         static LoadDataBusiness()
         {
@@ -21,23 +23,30 @@ namespace AppsterBackendAdmin.Business
 
         #endregion
 
-        public List<User> LoadNewAddedUsers(int? take)
+        public List<User> LoadNewAddedUsers(int take = 10)
         {
             var result = Context.GetNewAddedUser(take).Select(i => new User(i));
             return result.ToList();
         }
 
-        public List<User> LoadNewAddedAdmins(int? take)
+        public List<User> LoadNewAddedAdmins(int take = 10)
         {
             var roles = Context.GetRoles();
             var result = Context.GetNewAddedUser(take, getAdminUser: true).Select(i => new User(i, roles));
             return result.ToList();
         }
 
-        public List<Newsfeed> LoadNewfeeds(int? take)
+        public List<Newsfeed> LoadNewfeeds(int take = 10)
         {
             var feeds = Context.GetSavePushNotifications(i => i.id > 0, take).ToList();
             return feeds.Select(i => new Newsfeed(i)).ToList();
+        }
+
+        public List<Gifts> LoadGifts(int take = 10)
+        {
+            var categories = Context.GetGiftCategories().ToList();
+            var listGifts = Context.GetGifts(i => i.id > 0, 5, 0, loadBack: true).Select(g => new Gifts(g, categories));
+            return listGifts.ToList();
         }
 
         public User LoadUser(Func<user, bool> predicate)
@@ -51,6 +60,13 @@ namespace AppsterBackendAdmin.Business
         public List<User> LoadUsers(Func<user, bool> predicate, int? take, int? cursor, bool loadBack = false)
         {
             var data = Context.GetUsers(predicate, take, cursor, loadBack).ToList();
+            var result = data.Select(i => new User(i)).ToList();
+            return result;
+        }
+
+        public List<User> LoadUsersByPage(Func<user, bool> predicate, int page, PagingHelper pagingInfo, bool loadBack = false, int take = 20)
+        {
+            var data = Context.GetUsersByPage(predicate, loadBack, take, page, out pagingInfo);            
             var result = data.Select(i => new User(i)).ToList();
             return result;
         }

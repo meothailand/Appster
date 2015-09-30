@@ -1,0 +1,69 @@
+﻿@model AppsterBackendAdmin.Models.View.DashboardViewModel
+
+<div class="col-sm-12">
+    <div class="panel panel-primary">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="gifts_back">
+                        <div class="gifdts_end">Gifts</div>
+                    </th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th><div class="centered">Images</div></th>
+                    <th>Sounds</th>
+                    <td>Status</td>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var count = 0;
+                    foreach (var g in Model.NewGifts)
+                    {
+                        count += 1;
+                        <tr class="">
+                            <td>@g.gift_name</td>
+                            <td>@g.cost_gold</td>
+                            <td>@g.Category</td>
+                            <td class="centered"><img src="@g.image" alt="" style="width:50px; height:50px"></td>
+                            <td>
+                                @if (string.IsNullOrEmpty(g.SoundPath))
+                                {
+                                    <span>No sound found</span>
+                                }
+                                else
+                                {
+                                    <a href="@g.SoundPath">
+                                        @g.sound
+                                    </a>
+                                }                                
+                            </td>
+                            <td rel="data-gift-status-@g.id-@g.status">@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(g.status).ToString()</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a id="" class="account">
+                                        <span> <img alt="" title="Setting" src="~/Content/img/btn_dropdown.png"></span>
+                                    </a>
+                                    <div style="display: none; " class="submenu">
+                                        <div class="top2"></div>
+                                        <ul class="root">
+                                            <li>
+                                                <a href="/gift/edit/14"><img alt="edit" src="~/Content/img/icon_edit.png"> Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" rel="data-gift-suspend-@g.id" class="suspend-gift">
+                                                    <img src="~/Content/img/icon_invalid.png" alt="activate"> Suspend/Activate
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

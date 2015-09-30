@@ -27,17 +27,19 @@ namespace AppsterBackendAdmin.Infrastructures.Security
         public string UserName { get; private set; }
         public DateTimeOffset ExpireTime { get; set; }
         public AccessType AccessLevel { get; set; }
+        public string ProfilePath { get; set; }
         public string Signature { get; set; }
-        private Token(string username, AccessType accessType, DateTimeOffset expiration)
+        private Token(string username, string profileImg, AccessType accessType, DateTimeOffset expiration)
         {
             UserName = username;
+            ProfilePath = profileImg;
             AccessLevel = accessType;
             ExpireTime = expiration;
         }
-        public static Token CreateAndSign(string username, AccessType accessLevel, DateTimeOffset? expiredTime)
+        public static Token CreateAndSign(string username,string profileImg, AccessType accessLevel, DateTimeOffset? expiredTime)
         {
             var expiration = expiredTime.HasValue ? expiredTime.Value : DateTimeOffset.Now + TimeSpan.FromDays(2);
-            var token = new Token(username, accessLevel, expiration);
+            var token = new Token(username, profileImg, accessLevel, expiration);
             SignToken(token);
             return token;
         }
@@ -86,7 +88,7 @@ namespace AppsterBackendAdmin.Infrastructures.Security
         {
             using(var sha1 = SHA1.Create())
             {
-                string data = string.Format("{0}{1}{2}", this.UserName, this.AccessLevel, this.ExpireTime);
+                string data = string.Format("{0}{1}{2}{3}", this.UserName, this.AccessLevel, this.ExpireTime, this.ProfilePath);
                 var rbgHash = sha1.ComputeHash(Encoding.ASCII.GetBytes(data));
                 return rbgHash;
             }

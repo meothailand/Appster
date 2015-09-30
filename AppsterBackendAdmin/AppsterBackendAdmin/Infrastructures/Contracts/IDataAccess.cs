@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwinkleStars.Infrastructure.Utils;
 
 namespace AppsterBackendAdmin.Infrastructures.Contracts
 {
@@ -21,16 +22,18 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         /// </summary>
         /// <returns></returns>
         IEnumerable<role> GetRoles();
+        IEnumerable<gift_categories> GetGiftCategories();
         user GetUser(Func<user, bool> predicate);
         IEnumerable<user> GetUsers(Func<user, bool> predicate, int? take, int? cursor, bool loadBack = false);
-        IEnumerable<user> GetNewAddedUser(int? take, bool getAdminUser = false);
+        IEnumerable<user> GetUsersByPage(Func<user, bool> predicate, bool loadBack, int take, int page, out PagingHelper pagingInfo);
+        IEnumerable<user> GetNewAddedUser(int take, bool getAdminUser = false);
         post GetPost(Func<post, bool> predicate);
         IEnumerable<post> GetPosts(Func<post, bool> predicate);
         @event GetEvent(Func<@event, bool> predicate);
-        IEnumerable<@event> GetEvents(Func<@event, bool> predicate);
+        IEnumerable<@event> GetEvents(Func<@event, bool> predicate, int take, int cursor = 0, bool loadBack = false);
         gift GetGift(Func<gift, bool> predicate);
-        IEnumerable<gift> GetGifts(Func<gift, bool> predicate);
-        IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int? take);
+        IEnumerable<gift> GetGifts(Func<gift, bool> predicate, int take, int cursor = 0, bool loadBack = false);
+        IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int take);
         #endregion
 
         #region CRU Data
@@ -40,14 +43,15 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         /// <param name="predicate"></param>
         void SuspendUser(Func<user, bool> predicate);
         /// <summary>
-        /// Suspend user whose id matches the indicated userId
+        /// Suspend/activate user whose id matches the indicated userId
         /// </summary>
         /// <param name="userId"></param>
-        void SuspendUser(int userId);
+        int SuspendUser(int userId, bool suspend = true);
         /// <summary>
         /// Update existing user which new information
         /// </summary>
         /// <param name="updatedUser"></param>
+        /// <returns>status as int</returns>
         /// <exception cref="UsernameAlreadyExistException"></exception>
         /// <exception cref="EmailAlreadyExistException"></exception>
         /// <exception cref="DatabaseExecutionException"></exception>
@@ -61,6 +65,7 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         /// <exception cref="EmailAlreadyExistException"></exception>
         /// <exception cref="DatabaseExecutionException"></exception>
         Task<int> CreateUser(user newUser);
+        int SuspendGift(int giftId, bool suspend = true);
         #endregion
 
         #region Delete Data

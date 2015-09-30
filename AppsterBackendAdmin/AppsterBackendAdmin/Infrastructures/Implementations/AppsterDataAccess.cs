@@ -6,6 +6,7 @@ using System.Web;
 using AppsterBackendAdmin.Models;
 using AppsterBackendAdmin.Infrastructures.Security;
 using AppsterBackendAdmin.Infrastructures.Exceptions;
+using TwinkleStars.Infrastructure.Utils;
 
 namespace AppsterBackendAdmin.Infrastructures.Implementations
 {
@@ -42,6 +43,20 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
+        public IEnumerable<gift_categories> GetGiftCategories()
+        {
+            var context = new appsterEntities();
+            try
+            {
+                var data = context.gift_categories.ToArray();
+                return data;
+            }
+            finally
+            {
+                context.Dispose();
+            }
+        }
+
         public Models.user GetUser(Func<Models.user, bool> predicate)
         {
             using (var context = new appsterEntities())
@@ -69,30 +84,56 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
-        public IEnumerable<user> GetNewAddedUser(int? take, bool getAdminUser = false)
+        public IEnumerable<user> GetUsersByPage(Func<user, bool> predicate, bool loadBack, int take, int page, out PagingHelper pagingInfo)
+        {
+            var context = new appsterEntities();
+            try
+            {
+                var totalItems = context.users.Count(predicate);
+                pagingInfo = PagingHelper.GetPageInfo(totalItems, page, take);
+                var skip = pagingInfo.CurentPage == 0 ? 0 : (pagingInfo.CurentPage - 1) * take;
+                if (loadBack)
+                {
+                    var data = (from users in context.users.Where(predicate)
+                                orderby users.id descending
+                                select users).Skip(skip).ToList().GetRange(pagingInfo.StartIndex, pagingInfo.Count);
+                    return data;
+                }
+                else
+                {
+                    var data = (from users in context.users.Where(predicate)
+                                select users).Skip(skip).ToList().GetRange(pagingInfo.StartIndex, pagingInfo.Count);
+                    return data;
+                }
+            }
+            finally
+            {
+                context.Dispose();
+            }
+        }
+
+        public IEnumerable<user> GetNewAddedUser(int take, bool getAdminUser = false)
         {
             var roleId = GetRole("user");
             using (var context = new appsterEntities())
             {
-                var result = new List<user>();
                 if (getAdminUser)
                 {
                     var newAddedAdmin = (from users in context.users
                                      where users.role_id != roleId
                                      orderby users.id descending
-                                     select users);
-                    result = (take.HasValue && take > 0) ? newAddedAdmin.Take(take.Value).ToList() : newAddedAdmin.ToList();
+                                     select users).Take(take).ToArray();
+                    return newAddedAdmin;
                 }
                 else
                 {
                     var newAddedUsers = (from users in context.users
                                          where users.role_id == roleId
                                          orderby users.id descending
-                                     select users).Take(take.Value).ToList();
-                    result = (take.HasValue && take > 0) ? newAddedUsers.Take(take.Value).ToList() : newAddedUsers.ToList();
+                                     select users).Take(take).ToList();
+                    return newAddedUsers;
                 }
                 
-                return result;
             }
         }
 
@@ -119,7 +160,7 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Models.@event> GetEvents(Func<Models.@event, bool> predicate)
+        public IEnumerable<Models.@event> GetEvents(Func<Models.@event, bool> predicate, int take, int cursor = 0, bool loadBack = false)
         {
             throw new NotImplementedException();
         }
@@ -129,28 +170,52 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Models.gift> GetGifts(Func<Models.gift, bool> predicate)
+        public IEnumerable<Models.gift> GetGifts(Func<Models.gift, bool> predicate, int take, int cursor = 0, bool loadBack = false)
         {
-            throw new NotImplementedException();
+            var context = new appsterEntities();
+            context.Configuration.AutoDetectChangesEnabled = false;
+            try
+            {
+                var data = loadBack ? (from gifts in context.gifts.Where(predicate).OrderByDescending(i => i.id)
+                                       where cursor == 0 || gifts.id < cursor
+                                       select gifts).Take(take).ToArray() :
+                                      (from gifts in context.gifts.Where(predicate)
+                                       where gifts.id > cursor
+                                       select gifts).Take(take).ToArray();
+
+                return data;
+            }
+            finally
+            {
+                context.Configuration.AutoDetectChangesEnabled = true;
+                context.Dispose();
+            }
         }
 
 
-        public IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int? take)
+        public IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int take)
         {
-            using (var context = new appsterEntities())
-            {
-                var feeds = context.save_push_notifications.Where(predicate).OrderByDescending(n => n.id)
-                                   .Join(context.users, p => p.resiver_user_id, u => u.id, (p,u) => new{
+                var context = new appsterEntities();
+                context.Configuration.AutoDetectChangesEnabled = false;
+                try
+                {
+                    var data = context.save_push_notifications.Where(predicate).OrderByDescending(n => n.id)
+                                   .Join(context.users, p => p.resiver_user_id, u => u.id, (p, u) => new
+                                   {
                                        Id = p.id,
                                        UserId = p.user_id,
                                        ReceiverId = p.resiver_user_id,
                                        ReceiverName = u.display_name,
                                        Message = p.message,
                                        CreatedDate = p.created
-                                   });
-                if (take.HasValue && take > 0) feeds = feeds.Take(take.Value);
-                return feeds.ToList();         
-            }
+                                   }).Take(take).ToArray();
+                    return data;
+                }
+                finally
+                {
+                    context.Configuration.AutoDetectChangesEnabled = true;
+                    context.Dispose();
+                }
         }
     }
 }

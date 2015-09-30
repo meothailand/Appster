@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppsterBackendAdmin.Infrastructures.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,11 +39,12 @@ namespace AppsterBackendAdmin.Models.Business
 
         #endregion
 
-        private User() { }
+        public User() { }
 
         public User(user entity) : this()
         {
             ModelObjectHelper.CopyObject(entity, this);
+            this.image = SiteSettings.GetProfileImagePath(this.image);
         }
 
         public User(user entity, IEnumerable<role> roles) : this(entity)

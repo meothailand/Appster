@@ -11,12 +11,14 @@ namespace AppsterBackendAdmin.Models.View
         public List<User> NewAddedUsers;
         public List<User> NewAddedAdmins;
         public List<Newsfeed> Newsfeed;
+        public List<Gifts> NewGifts;
 
         public DashboardViewModel()
         {
             NewAddedAdmins = new List<User>();
             NewAddedUsers = new List<User>();
             Newsfeed = new List<Newsfeed>();
+            NewGifts = new List<Gifts>();
             PageTitle = "Dashboard";
         }
     }

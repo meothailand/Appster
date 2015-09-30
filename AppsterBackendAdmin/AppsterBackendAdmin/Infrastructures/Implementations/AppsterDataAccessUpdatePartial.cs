@@ -48,7 +48,7 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                 {
                     foreach (var usr in users)
                     {
-                        usr.status = 0;
+                        usr.status = usr.status == 0 ? 1 : 0;
                         context.Entry(usr).State = System.Data.Entity.EntityState.Modified;
                     }
                 }
@@ -60,13 +60,18 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
             }
         }
 
-        public void SuspendUser(int userId)
+        public int SuspendUser(int userId, bool suspend = true)
         {
             using (var context = new appsterEntities())
             {
                 var dbUser = context.users.SingleOrDefault(i => i.id == userId);
-                dbUser.status = 0;
-                context.SaveChanges();
+                if(dbUser!=null) 
+                {
+                    dbUser.status = suspend ? 0 : 1;
+                    context.SaveChanges();
+                    return dbUser.status;
+                }
+                throw new DataNotFoundException();
             }
         }
 
@@ -107,6 +112,21 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                     if (checkData.email == newUser.email) throw new EmailAlreadyExistException();
                 }
                 throw new DatabaseExecutionException();
+            }
+        }
+
+        public int SuspendGift(int giftId, bool suspend = true)
+        {
+            using (var context = new appsterEntities())
+            {
+                var dbGift = context.gifts.SingleOrDefault(i => i.id == giftId);
+                if (dbGift != null)
+                {
+                    dbGift.status = suspend ? 0 : 1;
+                    context.SaveChanges();
+                    return dbGift.status;
+                }
+                throw new DataNotFoundException();
             }
         }
     }
