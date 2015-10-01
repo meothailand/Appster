@@ -27,7 +27,7 @@ namespace AppsterBackendAdmin.Business
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        /// <exception cref="InvalidUserException"></exception>
+        /// <exception cref="AppsInvalidUserException"></exception>
         internal string ComposeToken(user user)
         {
             var expiration = DateTimeOffset.Now + TimeSpan.FromDays(2);
@@ -40,21 +40,21 @@ namespace AppsterBackendAdmin.Business
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        /// <exception cref="InvalidUserException"></exception>
+        /// <exception cref="AppsInvalidUserException"></exception>
         internal AccessType GetAccessType(int role)
         {
             using (var context = new appsterEntities())
             {
                 var roles = context.roles;
                 var userRole = roles.SingleOrDefault(i => i.id == role);
-                if (userRole == null) throw new InvalidUserException("User role is invalid");
+                if (userRole == null) throw new AppsInvalidUserException("User role is invalid");
                 switch (userRole.name.ToLower())
                 {
                     case SupperAdmin: return AccessType.Supper;
                     case "minimum access": return AccessType.Minimum;
                     case "average access": return AccessType.Average;
                     case "maximum access": return AccessType.Max;
-                    default: throw new InvalidUserException("User role is invalid");
+                    default: throw new AppsInvalidUserException("User role is invalid");
                 }
             }
         }

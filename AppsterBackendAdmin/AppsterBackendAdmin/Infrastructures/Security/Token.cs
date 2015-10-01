@@ -64,12 +64,12 @@ namespace AppsterBackendAdmin.Infrastructures.Security
         }
         public void Validate()
         {
-            if (this.ExpireTime < DateTimeOffset.Now) throw new TokenExpiredException();
+            if (this.ExpireTime < DateTimeOffset.Now) throw new AppsTokenExpiredException();
             using (var verifier = DsaHelper.GetPublicKey())
             {
                 var signature = ConvertToBytes(this.Signature);
                 var data = this.ComposeData();
-                if (!verifier.VerifySignature(data, signature)) throw new InvalidTokenException();
+                if (!verifier.VerifySignature(data, signature)) throw new AppsInvalidTokenException();
             }
         }
         private static Token SignToken(Token token)
@@ -122,7 +122,7 @@ namespace AppsterBackendAdmin.Infrastructures.Security
                 }
                 catch
                 {
-                    throw new InvalidTokenException();
+                    throw new AppsInvalidTokenException();
                 }
             }
         }

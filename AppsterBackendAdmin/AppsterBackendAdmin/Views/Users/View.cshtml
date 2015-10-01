@@ -1,0 +1,55 @@
+﻿@model AppsterBackendAdmin.Models.View.EditUserViewModel
+
+@section bodyContent{
+    <div id="crumbs2">
+        <ul>
+            <li><a href="/users">Users</a></li>
+            <li>@Model.Value.display_name</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary panel_user_primary_sec">
+                <section class="view_area">
+                    <div class="profile_app_user">
+                        <img src="@Model.Value.image" alt="@Model.Value.display_name profile picture" />
+                    </div><!--profile_aopp-->
+                    <div class="data">
+                        <p><span>Name :</span>@Model.Value.display_name</p>
+
+                        <p><span>Username :</span>@Model.Value.username</p>
+
+                        <p><span>Status :</span> @AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(Model.Value.status)</p>
+
+                        <p><span>E-mail :</span>@Model.Value.email</p>
+
+                        <p><span>Gender:</span>@Model.Value.gender</p>
+
+                        <p><span>Referral ID :</span>@Model.Value.referral_id</p>
+
+                        <p><span>Gift Sent :</span><a href="/users/loadusersentgifts/@Model.Value.id">@Model.Value.gift_sent_count</a></p>
+
+                        <p><span>Gift Received :</span><a href="/users/loaduserreceivedgifts/@Model.Value.id">@Model.Value.gift_received_count</a></p>
+
+                        <p><span>Followers :</span><a href="/users/loadfollowers/@Model.Value.id">@Model.FollowerCount</a></p>
+
+                        <p><span>Following :</span><a href="/users/loadfollowings/@Model.Value.id">@Model.FollowingCount</a></p>
+
+                        <p><span>No. Of Post :</span><a href="/users/loaduserposts/@Model.Value.id">@Model.PostCount</a></p>
+                        <p>
+                            <span>Check-in Location :</span>
+                            @Model.CheckinLocation
+                        </p>
+                    </div><!--data-->
+                </section>
+                <div class="anoter_user">
+                    <div class="submit edit_del">
+                        <a href="/users/edituser/@Model.Value.id"><input name="" value="Edit" class="grey_btn" type="submit"></a>
+                        <a href="javascript:void(0);"><input name="" value="Delete" class="grey_btn" type="submit"></a>
+                    </div>
+                </div><!--another-->
+            </div>
+        </div>
+    </div>
+}
+

@@ -71,7 +71,7 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                     context.SaveChanges();
                     return dbUser.status;
                 }
-                throw new DataNotFoundException();
+                throw new AppsDataNotFoundException();
             }
         }
 
@@ -89,8 +89,8 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                 }
                 else
                 {
-                    if (checkData.username == updatedUser.username) throw new UsernameAlreadyExistException();
-                    if (checkData.email == updatedUser.email) throw new EmailAlreadyExistException();
+                    if (checkData.username == updatedUser.username) throw new AppsUsernameAlreadyExistException();
+                    if (checkData.email == updatedUser.email) throw new AppsEmailAlreadyExistException();
                 }
             }
         }
@@ -108,10 +108,10 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                 }
                 else
                 {
-                    if (checkData.username == newUser.username) throw new UsernameAlreadyExistException();
-                    if (checkData.email == newUser.email) throw new EmailAlreadyExistException();
+                    if (checkData.username == newUser.username) throw new AppsUsernameAlreadyExistException();
+                    if (checkData.email == newUser.email) throw new AppsEmailAlreadyExistException();
                 }
-                throw new DatabaseExecutionException();
+                throw new AppsDatabaseExecutionException();
             }
         }
 
@@ -126,7 +126,7 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                     context.SaveChanges();
                     return dbGift.status;
                 }
-                throw new DataNotFoundException();
+                throw new AppsDataNotFoundException();
             }
         }
     }

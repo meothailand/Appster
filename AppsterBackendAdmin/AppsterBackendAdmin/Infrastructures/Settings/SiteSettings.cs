@@ -12,6 +12,13 @@ namespace AppsterBackendAdmin.Infrastructures.Settings
         Active,
         Unknown
     }
+
+    public enum GenderEnum
+    {
+        Male,
+        Female
+    }
+
     public class SiteSettings
     {
         public const string LoginSessionName = "AppsterLoginSession";
