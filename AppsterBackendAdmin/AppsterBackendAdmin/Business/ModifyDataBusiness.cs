@@ -1,4 +1,5 @@
 ﻿using AppsterBackendAdmin.Infrastructures.Exceptions;
+using AppsterBackendAdmin.Infrastructures.Settings;
 using AppsterBackendAdmin.Models;
 using AppsterBackendAdmin.Models.Business;
 using System;
@@ -26,13 +27,30 @@ namespace AppsterBackendAdmin.Business
         /// <param name="user"></param>
         /// <param name="createNew"></param>
         /// <returns>User id as int</returns>
-        /// <exception cref="UsernameAlreadyExistException"></exception>
-        /// <exception cref="EmailAlreadyExistException"></exception>
-        /// <exception cref="DatabaseExecutionException"></exception>
+        /// <exception cref="AppsUsernameAlreadyExistException"></exception>
+        /// <exception cref="AppsEmailAlreadyExistException"></exception>
+        /// <exception cref="AppsDatabaseExecutionException"></exception>
+        /// <exception cref="AppsOutOfAcceptedAgeException"></exception>
+        /// <exception cref="AppsRequiredDataIsNullException"></exception>
+        /// <exception cref="AppsInvalidDataFormatException"></exception>
+        /// <exception cref="AppsDataNotFoundException"></exception>
+        /// <exception cref="AppsInvalidEmailFormatException"></exception>
         public async Task<int> SaveUser(User user, bool createNew = false)
         {
             if (createNew)
             {
+                ValidateUserNameAgainstRequirement(user.username);
+
+                if (!string.IsNullOrWhiteSpace(user.email) && !ValidateEmailFormat(user.email))
+                    throw new AppsInvalidEmailFormatException();
+
+                user.password = ValidateAndGeneratePasswordHash(user.password);
+
+                if ((user.dob > DateTime.MinValue) && !ValidateDOBAgaintsAcceptedRange(user.dob))
+                    throw new AppsOutOfAcceptedAgeException();
+
+                user.gender = string.IsNullOrWhiteSpace(user.gender) ? GenderEnum.Male.ToString() : user.gender;
+
                 var newUser = new user();
                 ModelObjectHelper.CopyObject(user, newUser);
                 var id = await Context.CreateUser(newUser);
@@ -41,15 +59,24 @@ namespace AppsterBackendAdmin.Business
             else
             {
                 var dbUser = Context.GetUser(i => i.id == user.id);
-                if (dbUser == null) throw new DataNotFoundException("This user is no longer exist");
-                dbUser.username = user.username;
-                dbUser.display_name = user.display_name;
+
+                if (dbUser == null) throw new AppsDataNotFoundException("This user is no longer exist");
+
+                if (!string.IsNullOrWhiteSpace(user.password))
+                    dbUser.password = ValidateAndGeneratePasswordHash(user.password);
+
+                if (user.dob > DateTime.MinValue && !ValidateDOBAgaintsAcceptedRange(user.dob)) throw new AppsOutOfAcceptedAgeException();
+
+                if (!string.IsNullOrWhiteSpace(user.email) && !ValidateEmailFormat(user.email)) throw new AppsInvalidEmailFormatException();
+
                 dbUser.email = user.email;
-                dbUser.password = user.password;
-                dbUser.role_id = user.role_id;
+                dbUser.dob = user.dob;
+                dbUser.image = dbUser.image != user.image && !string.IsNullOrWhiteSpace(user.image) ? user.image : dbUser.image;
+                dbUser.display_name = user.display_name;
+                dbUser.gender = string.IsNullOrWhiteSpace(user.gender) ? GenderEnum.Male.ToString() : user.gender;
+
                 await Context.UpdateUser(dbUser);
-                return user.id;
-                
+                return user.id;                
             }
         }
     }

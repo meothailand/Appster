@@ -34,6 +34,7 @@ namespace AppsterBackendAdmin.Infrastructures.Contracts
         gift GetGift(Func<gift, bool> predicate);
         IEnumerable<gift> GetGifts(Func<gift, bool> predicate, int take, int cursor = 0, bool loadBack = false);
         IEnumerable<dynamic> GetSavePushNotifications(Func<save_push_notifications, bool> predicate, int take);
+        Task<dynamic> GetUserAdditionalInformation(int userId);
         #endregion
 
         #region CRU Data

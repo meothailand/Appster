@@ -26,9 +26,9 @@ namespace AppsterBackendAdmin.Infrastructures.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var tokenStr = (string)HttpContext.Current.Session[SiteSettings.LoginSessionName];
-            if (tokenStr == null) throw new UnauthenticatedException();
+            if (tokenStr == null) throw new AppsUnauthenticatedException();
             var token = Token.ReadTokenFromString(tokenStr);
-            if (token == null) throw new InvalidTokenException();
+            if (token == null) throw new AppsInvalidTokenException();
             token.Validate();
             if (!AllowAll && Array.IndexOf(AccessLevel, token.AccessLevel) < 0) throw new UnauthorizedAccessException();
             base.OnActionExecuting(filterContext);

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -30,6 +31,16 @@ namespace AppsterBackendAdmin.Controllers
             return View(model);
         }
 
+        public async Task<ViewResult> View(int id)
+        {
+            var user = DataLoader.LoadUser(i => i.id == id);
+            var model = new EditUserViewModel("User Details");
+            model.Value = user;
+            var addtionalInfo = await DataLoader.Context.GetUserAdditionalInformation(id);
+            ModelObjectHelper.CopyObject(addtionalInfo, model);
+            return View(model);
+        }
+
         public ViewResult EditUser(int id)
         {
             var user = DataLoader.LoadUser(i => i.id == id);
@@ -42,17 +53,11 @@ namespace AppsterBackendAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<object> EditUser(User user, HttpPostedFileBase profileImage)
+        public async Task<object> EditUser(User user)
         {
+            var httpClient = new HttpClient();
             try
-            {
-                var fileContent = Serialize(profileImage);
-                HttpClient httpClient = new HttpClient();
-                var content = new MultipartFormDataContent();
-                content.Add(new StreamContent(profileImage.InputStream), "image", profileImage.FileName);
-                var response = await httpClient.PostAsync(SiteSettings.GetApiPath("users/remote_update_profile"), content);
-                if (!response.IsSuccessStatusCode) throw new HttpException();
-                var fileName = await response.Content.ReadAsStringAsync();
+            {               
                 await DataModifier.SaveUser(user);
                 return Json(new
                 {
@@ -66,7 +71,11 @@ namespace AppsterBackendAdmin.Controllers
                 {
                     statusCode = errCode
                 });
-            }            
+            }
+            finally
+            {
+                httpClient.Dispose();
+            }        
         }
 
         [HttpPost]
@@ -114,14 +123,15 @@ namespace AppsterBackendAdmin.Controllers
             }
         }
 
-        private byte[] Serialize(HttpPostedFileBase file)
+        private string ConvertToString(HttpPostedFileBase file)
         {
-            var imageFile = new Bitmap(file.InputStream);
-            var formatter = new BinaryFormatter();
-            var msStream = new MemoryStream();
-            
-            formatter.Serialize(msStream, imageFile);
-            return msStream.ToArray();
+            using (var ms = new MemoryStream())
+            {
+                file.InputStream.CopyTo(ms);
+                var result = Convert.ToBase64String(ms.ToArray(), Base64FormattingOptions.None);
+                result = string.Format("[{0}]{1}", file.FileName, result);
+                return result;
+            }
         }
     }
 }

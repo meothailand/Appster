@@ -29,7 +29,7 @@ namespace AppsterBackendAdmin.Controllers
             catch (Exception ex)
             {
                 credential.IsError = true;
-                if (ex.GetType() == typeof(LoginFailException) || ex.GetType() == typeof(InvalidUserException))
+                if (ex.GetType() == typeof(AppsLoginFailException) || ex.GetType() == typeof(AppsInvalidUserException))
                 {
                     credential.ErrorMessage = ex.Message;
                 }

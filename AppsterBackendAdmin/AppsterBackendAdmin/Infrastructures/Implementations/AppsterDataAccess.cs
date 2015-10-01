@@ -7,6 +7,7 @@ using AppsterBackendAdmin.Models;
 using AppsterBackendAdmin.Infrastructures.Security;
 using AppsterBackendAdmin.Infrastructures.Exceptions;
 using TwinkleStars.Infrastructure.Utils;
+using System.Threading.Tasks;
 
 namespace AppsterBackendAdmin.Infrastructures.Implementations
 {
@@ -216,6 +217,28 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
                     context.Configuration.AutoDetectChangesEnabled = true;
                     context.Dispose();
                 }
+        }
+
+        public async Task<dynamic> GetUserAdditionalInformation(int userId)
+        {
+            var context = new appsterEntities();
+            try
+            {
+                var followings = context.follows.Count(i => i.id == userId);
+                var followers = context.follows.Count(i => i.follow_user_id == userId);
+                var posts = context.posts.Count(i => i.user_id == userId);
+
+                return new
+                {
+                    FollowerCount = followers,
+                    FollowingCount = followings,
+                    PostCount = posts
+                };
+            }
+            finally
+            {
+                context.Dispose();
+            }
         }
     }
 }

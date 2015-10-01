@@ -77,8 +77,8 @@ namespace AppsterBackendAdmin.Business
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns>string: user token key</returns>
-        /// <exception cref="InvalidUserException"></exception>
-        /// <exception cref="LoginFailException"></exception>
+        /// <exception cref="AppsInvalidUserException"></exception>
+        /// <exception cref="AppsLoginFailException"></exception>
         public string SignInUser(string userName, string password)
         {
             password = AccountPasswordHelper.Instance.EncryptPassword(password);
@@ -86,9 +86,9 @@ namespace AppsterBackendAdmin.Business
             user = user == null ? Context.GetUser(i => i.email == userName && i.password == password) : user;
             if (user == null)
             {
-                throw new LoginFailException("User name or password invalid");
+                throw new AppsLoginFailException("User name or password invalid");
             }
-            if (user.status != 1) throw new LoginFailException("Account has been deactivated", 603);
+            if (user.status != 1) throw new AppsLoginFailException("Account has been deactivated", 603);
             return ComposeToken(user);
         }
     }

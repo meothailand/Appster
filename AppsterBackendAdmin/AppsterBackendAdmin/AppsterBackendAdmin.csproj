@@ -132,6 +132,7 @@
     <Compile Include="Business\BusinessBase.cs" />
     <Compile Include="Business\LoadDataBusiness.cs" />
     <Compile Include="Business\ModifyDataBusiness.cs" />
+    <Compile Include="Business\ModifyDataBusinessHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Infrastructures\Contracts\IAppsterCrypto.cs" />
     <Compile Include="Infrastructures\Contracts\IDataAccess.cs" />
     <Compile Include="Infrastructures\Exceptions\AppsterExceptions.cs" />
+    <Compile Include="Infrastructures\Exceptions\AppsterValidateDataException.cs" />
     <Compile Include="Infrastructures\Exceptions\GeneralExceptionHandler.cs" />
     <Compile Include="Infrastructures\Filters\AppsterPortalExceptionHandler.cs" />
     <Compile Include="Infrastructures\Filters\TokenFilterAttribute.cs" />
@@ -433,6 +435,7 @@
       <DependentUpon>Appster.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View\DashboardViewModel.cs" />
+    <Compile Include="Models\View\EditUserViewModel.cs" />
     <Compile Include="Models\View\LoginViewModel.cs" />
     <Compile Include="Models\View\UsersViewModel.cs" />
     <Compile Include="Models\View\ViewModelBase.cs" />
@@ -525,7 +528,9 @@
     <Content Include="Content\css\thickbox.css" />
     <Content Include="Content\css\wysihtml5_color.css" />
     <Content Include="Content\font\gothicb.svg" />
+    <Content Include="Content\img\arw.png" />
     <Content Include="Content\img\bg.png" />
+    <Content Include="Content\img\browse_btn.png" />
     <Content Include="Content\img\btn_dropdown.png" />
     <Content Include="Content\img\colorpicker\alpha-horizontal.png" />
     <Content Include="Content\img\colorpicker\alpha.png" />
@@ -549,6 +554,7 @@
     <Content Include="Content\img\logo%402x.png" />
     <Content Include="Content\img\logo_adminag.png" />
     <Content Include="Content\img\log_ooout.png" />
+    <Content Include="Content\img\new_userq.png" />
     <Content Include="Content\img\uploads\articles\1b0229f79303f914610ffcd770149423.jpeg" />
     <Content Include="Content\img\uploads\articles\76033d11df25bb5c050fea077e1b02b6.png" />
     <Content Include="Content\img\uploads\articles\946a74e58ff86d50c79ba0c5b146169b.jpeg" />
@@ -2162,8 +2168,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Dashboard\About.cshtml" />
-    <Content Include="Views\Dashboard\Contact.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\_NewAddedUserPartial.cshtml" />
     <Content Include="Views\Dashboard\_NewAddedAdminUserPartial.cshtml" />
@@ -2172,6 +2176,8 @@
     <Content Include="Views\Users\EditUser.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Dashboard\_NewAddedGiftPartial.cshtml" />
+    <Content Include="Views\Shared\_PagingPartial.cshtml" />
+    <Content Include="Views\Users\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
