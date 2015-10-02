@@ -15,7 +15,7 @@ namespace AppsterBackendAdmin.Business
         public IDataAccess Context { get; private set; }
         public const string SupperAdmin = "super admin";
         public const int SuperAdminRoleId = 1;
-
+        public const int UserRoleId = 5;
         public BusinessBase()
         {
             Context = AppsterDataAccess.Instance;
@@ -41,7 +41,7 @@ namespace AppsterBackendAdmin.Business
         /// <param name="role"></param>
         /// <returns></returns>
         /// <exception cref="AppsInvalidUserException"></exception>
-        internal AccessType GetAccessType(int role)
+        public static AccessType GetAccessType(int role)
         {
             using (var context = new appsterEntities())
             {

@@ -12,7 +12,6 @@ namespace AppsterBackendAdmin.Models.View
         public int FollowerCount { get; set; }
         public int FollowingCount { get; set; }
         public int PostCount { get; set; }
-        public string CheckinLocation { get; set; }
         public EditUserViewModel(string title = "Edit User")
         {
             PageTitle = title;

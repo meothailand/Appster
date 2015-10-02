@@ -1,4 +1,5 @@
-﻿using AppsterBackendAdmin.Infrastructures.Exceptions;
+﻿using AppsterBackendAdmin.Business;
+using AppsterBackendAdmin.Infrastructures.Exceptions;
 using AppsterBackendAdmin.Infrastructures.Settings;
 using AppsterBackendAdmin.Models.Business;
 using AppsterBackendAdmin.Models.View;
@@ -33,49 +34,52 @@ namespace AppsterBackendAdmin.Controllers
 
         public async Task<ViewResult> View(int id)
         {
-            var user = DataLoader.LoadUser(i => i.id == id);
-            var model = new EditUserViewModel("User Details");
-            model.Value = user;
-            var addtionalInfo = await DataLoader.Context.GetUserAdditionalInformation(id);
-            ModelObjectHelper.CopyObject(addtionalInfo, model);
+            var model = await GetUserForView(id, isSuperAdmin:false);
+            return View(model);
+        }
+
+        public async Task<ViewResult> ViewAdmin(int id)
+        {
+            var model = await GetUserForView(id, isSuperAdmin: true, modelTile: "Admin Details");
             return View(model);
         }
 
         public ViewResult EditUser(int id)
         {
-            var user = DataLoader.LoadUser(i => i.id == id);
-            if (user != null)
-            {
-                var model = new EditUserViewModel() { Value = user };
-                return View(model);
-            }
-            return View();
+            var user = DataLoader.LoadUser(i => i.id == id && i.role_id == BusinessBase.UserRoleId);            
+            var model = new EditUserViewModel() { Value = user };
+            model.ErrorMessage = user == null ? "This user doesn't exist or you don't have enough right to edit this profile." : "";
+            return View(model);
+        }
+
+        public ViewResult EditAdmin(int id)
+        {
+            var user = DataLoader.LoadUser(i => i.id == id && i.role_id != BusinessBase.UserRoleId);           
+            var model = new EditUserViewModel() { Value = user };
+            model.ErrorMessage = user == null ? "This user doesn't exist or you don't have enough right to edit this profile." : "";
+            return View(model);
         }
 
         [HttpPost]
         public async Task<object> EditUser(User user)
         {
-            var httpClient = new HttpClient();
-            try
-            {               
-                await DataModifier.SaveUser(user);
-                return Json(new
-                {
-                    statusCode = (int)HttpStatusCode.OK
-                });
-            }
-            catch (Exception ex)
-            {
-                var errCode = ex.GetType().GetType() == typeof(HttpException) ? ((HttpException)ex).ErrorCode : (int)HttpStatusCode.InternalServerError;
-                return Json(new
-                {
-                    statusCode = errCode
-                });
-            }
-            finally
-            {
-                httpClient.Dispose();
-            }        
+            return await EditAccount(user, isSuperAdmin:false);
+        }
+
+        [HttpPost]
+        public async Task<object> EditAdmin(User user)
+        {
+            return await EditAccount(user, isSuperAdmin: true);
+        }
+
+        public ViewResult CreateUser()
+        {
+            return View();
+        }
+
+        public ViewResult CreateAdmin()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -123,14 +127,46 @@ namespace AppsterBackendAdmin.Controllers
             }
         }
 
-        private string ConvertToString(HttpPostedFileBase file)
+        private async Task<EditUserViewModel> GetUserForView(int id, bool isSuperAdmin, string errorMessage = "default", string modelTile = "User Details")
         {
-            using (var ms = new MemoryStream())
+            var user = isSuperAdmin ? DataLoader.LoadUser(i => i.id == id && i.role_id != BusinessBase.UserRoleId) :
+                       DataLoader.LoadUser(i => i.id == id && i.role_id == BusinessBase.UserRoleId);
+            var model = new EditUserViewModel(modelTile);
+            model.Value = user;
+            if (user != null)
             {
-                file.InputStream.CopyTo(ms);
-                var result = Convert.ToBase64String(ms.ToArray(), Base64FormattingOptions.None);
-                result = string.Format("[{0}]{1}", file.FileName, result);
-                return result;
+                var addtionalInfo = await DataLoader.Context.GetUserAdditionalInformation(id);
+                ModelObjectHelper.CopyObject(addtionalInfo, model);
+            }
+            else
+            {
+                model.ErrorMessage = errorMessage == "default" ? "Sorry this user doesn't exist or you don't have enough authority to view this user's profile." : errorMessage;
+            }
+            return model;
+        }
+
+        private async Task<object> EditAccount(User user, bool isSuperAdmin)
+        {
+            var httpClient = new HttpClient();
+            try
+            {
+                await DataModifier.SaveUser(user);
+                return Json(new
+                {
+                    statusCode = (int)HttpStatusCode.OK
+                });
+            }
+            catch (Exception ex)
+            {
+                var errCode = ex.GetType().GetType() == typeof(HttpException) ? ((HttpException)ex).ErrorCode : (int)HttpStatusCode.InternalServerError;
+                return Json(new
+                {
+                    statusCode = errCode
+                });
+            }
+            finally
+            {
+                httpClient.Dispose();
             }
         }
     }

@@ -35,8 +35,9 @@ namespace AppsterBackendAdmin.Business
         /// <exception cref="AppsInvalidDataFormatException"></exception>
         /// <exception cref="AppsDataNotFoundException"></exception>
         /// <exception cref="AppsInvalidEmailFormatException"></exception>
-        public async Task<int> SaveUser(User user, bool createNew = false)
+        public async Task<int> SaveUser(User user, bool createNew = false, bool isSupperAdmin = false)
         {
+            if (!isSupperAdmin && user.role_id != UserRoleId) throw new AppsUnAuthorizedException();
             if (createNew)
             {
                 ValidateUserNameAgainstRequirement(user.username);

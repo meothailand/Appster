@@ -77,6 +77,7 @@ namespace AppsterBackendAdmin.Infrastructures.Implementations
 
         public async Task UpdateUser(user updatedUser)
         {
+            if (!GetRoles().Any(i => i.id == updatedUser.role_id)) throw new AppsRequiredDataIsNullException();
             using (var context = new appsterEntities())
             {
                 var checkData = context.users.SingleOrDefault(i => i.id != updatedUser.id &&

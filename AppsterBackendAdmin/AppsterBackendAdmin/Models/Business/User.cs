@@ -36,6 +36,7 @@ namespace AppsterBackendAdmin.Models.Business
 
         #region additional fields
         public string AccessLevel { get; set; }
+        public string LatLong { get; set; }
 
         #endregion
 
@@ -45,7 +46,9 @@ namespace AppsterBackendAdmin.Models.Business
         {
             ModelObjectHelper.CopyObject(entity, this);
             this.image = SiteSettings.GetProfileImagePath(this.image);
-            this.gender = string.IsNullOrWhiteSpace(this.gender) ? "Male" : this.gender; 
+            this.gender = string.IsNullOrWhiteSpace(this.gender) ? "Male" : this.gender;
+            this.LatLong = string.Format("{0},{1}", string.IsNullOrWhiteSpace(entity.latitude) ? "0" : entity.latitude,
+                string.IsNullOrWhiteSpace(entity.longitude) ? "0" : entity.longitude);
         }
 
         public User(user entity, IEnumerable<role> roles) : this(entity)
