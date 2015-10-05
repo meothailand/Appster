@@ -26,7 +26,7 @@
                             <td id="data-user-name-@user.id" title="@user.display_name">@user.display_name</td>
                             <td rel="data-user-email">@user.email</td>
                             <td class="centered">
-                                @(string.IsNullOrWhiteSpace(user.gender) || user.gender == "Female" ? "M" : "F")
+                                @(string.IsNullOrWhiteSpace(user.gender) ? "M" : user.gender.Substring(0,1).ToUpper())
                             </td>
                             <td>@user.referral_id</td>
                             <td rel="data-user-status-@user.id-@user.status">@AppsterBackendAdmin.Infrastructures.Settings.SiteSettings.UserStatus(user.status).ToString()</td>

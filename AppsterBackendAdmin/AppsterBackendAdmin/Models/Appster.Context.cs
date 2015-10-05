@@ -18,6 +18,7 @@ namespace AppsterBackendAdmin.Models
         public appsterEntities()
             : base("name=appsterEntities")
         {
+            this.Database.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

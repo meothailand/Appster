@@ -11,15 +11,20 @@
 <div class="row">
     @Html.Partial("_NewAddedUserPartial", Model)
 </div>
-<div class="main_heading">
-    <h2 class="left">Recently Added Sub-Admin</h2>
-    <div class="right">
-        <a href="#" title="add sub-admin">Add Sub-Admin</a>
+
+@if (Model.NewAddedAdmins.Count > 0)
+{
+    <div class="main_heading">
+        <h2 class="left">Recently Added Sub-Admin</h2>
+        <div class="right">
+            <a href="#" title="add sub-admin">Add Sub-Admin</a>
+        </div>
     </div>
-</div>
-<div class="row">
-    @Html.Partial("_NewAddedAdminUserPartial", Model)
-</div>
+    <div class="row">
+        @Html.Partial("_NewAddedAdminUserPartial", Model)
+    </div>
+}
+
 <div class="main_heading">
     <h2 class="left">Newsfeed</h2>
 </div>

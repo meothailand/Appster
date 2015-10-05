@@ -22,7 +22,7 @@
              new { @class = "form-horizontal form-groups-bordered common_image", @id = "edit-user-form", @enctype = "multipart/form-data", @acceptCharset = "utf-8" }))
             {
                 <div class="submit edit_del circle_image_users">
-                    <img src="@Model.Value.image" id="profile_img" alt="@Model.Value.username" style="width:161px; height:154px;" />
+                    <img src="@Model.Value.UserImageLink" id="profile_img" alt="@Model.Value.username" style="width:161px; height:154px;" />
                     <div class="input file"><input name="profileImage" id="profileImage" class="hidden_image" type="file"></div>
                     <div id="old_image" style="display: block;">
                         <span>
@@ -49,8 +49,19 @@
                         <div class="input select required">
                             <select name="gender" id="gender" required="required">
                                 <option value="">Select gender</option>
-                                <option value="Male" selected="selected">Male</option>
-                                <option value="Female">Female</option>
+                                @{
+                                    if (string.Compare(Model.Value.gender, "male", ignoreCase: true) == 0)
+                                    {
+                                        <option value="Male" selected="selected">Male</option>
+                                        <option value="Female">Female</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Male">Male</option>
+                                        <option value="Female" selected="selected">Female</option>
+                                    }
+                                }
+                                
                             </select>
                         </div>
 
@@ -63,7 +74,7 @@
                     <div class="anoter">
                         <section class="right_side">
                             <div class="submit edit_del">
-                                <input name="register" class="grey_btn" value="Update" type="submit">
+                                <input name="saveUser" id="saveUser" class="grey_btn" value="Update" type="button">
                                 <a href="/users"><input name="" value="Cancel" class="grey_btn" type="button"></a>
                             </div>
                         </section>
@@ -78,40 +89,6 @@
 
 @section customScripts{
 <script src="~/Content/js/jquery.fileupload.js"></script>
-<script>
-
-    // When the server is ready..
-
-    $ = jQuery.noConflict();
-
-    $(document).ready(function () {
-        $("#profileImage").on("change", function () {
-            var files = !!this.files ? this.files : [];
-            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-
-
-            if (/^image/.test(files[0].type)) { // only image file
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
-
-                reader.onloadend = function () { // set image data as background of div
-                    jobImage = this.result;
-
-                    //$('#img_div_pre').show();
-                    $("#profile_img").attr("src", jobImage);
-
-                }
-            }
-        });
-
-        //code for the date picker
-        $('#dob').datepicker({
-            dateFormat: "dd/mm/yy",
-            yearRange: '1950:' + new Date().getFullYear(),
-            changeMonth: true,
-            changeYear: true,
-        });
-    });
-
+<script type="text/javascript" src="~/Scripts/page.edit-create-user.js">  
 </script>
 }
